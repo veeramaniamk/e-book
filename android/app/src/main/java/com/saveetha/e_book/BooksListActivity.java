@@ -8,12 +8,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.saveetha.e_book.databinding.ActivityBooksListBinding;
+
 public class BooksListActivity extends AppCompatActivity {
+
+    ActivityBooksListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_books_list);
+        binding = ActivityBooksListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 }
