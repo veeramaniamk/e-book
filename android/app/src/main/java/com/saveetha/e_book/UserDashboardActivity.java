@@ -17,7 +17,7 @@ public class UserDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUserDashboardBinding.inflate(getLayoutInflater())
+        binding = ActivityUserDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 }
