@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EBook"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
@@ -19,16 +19,32 @@
             android:name=".BooksListActivity"
             android:exported="false" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".adminscreens.AdminDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".openingscreens.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".openingscreens.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".openingscreens.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".reviewerscrees.ReviewerDashboardActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" >
+
         </activity>
     </application>
 
