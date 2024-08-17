@@ -7,5 +7,10 @@
 
     <style name="Theme.EBook" parent="Base.Theme.EBook" />
 
+    <style name="CustomTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+    </style>
 
 </resources>

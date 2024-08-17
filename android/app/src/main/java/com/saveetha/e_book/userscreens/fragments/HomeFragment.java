@@ -1,4 +1,4 @@
-package com.saveetha.e_book.fragments;
+package com.saveetha.e_book.userscreens.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,14 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.saveetha.e_book.BooksListActivity;
-import com.saveetha.e_book.R;
-import com.saveetha.e_book.adapters.CategoryListAdapter;
+import com.saveetha.e_book.userscreens.BooksListActivity;
+import com.saveetha.e_book.userscreens.adapters.CategoryListAdapter;
 import com.saveetha.e_book.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
     FragmentHomeBinding binding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,16 +29,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), BooksListActivity.class);
-                intent.putExtra("CATEGORY_TYPE","ALL")
+                intent.putExtra("CATEGORY_TYPE","ALL");
                 startActivity(intent);
             }
         });
 
-        CategoryListAdapter adapter = new CategoryListAdapter(this, categories);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL,false);
-        binding.categoryRV.setLayoutManager(gridLayoutManager);
-        binding.categoryRV.setAdapter(adapter);
+//        CategoryListAdapter adapter = new CategoryListAdapter(this, categories);
+//
+//        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL,false);
+//        binding.categoryRV.setLayoutManager(gridLayoutManager);
+//        binding.categoryRV.setAdapter(adapter);
 
         return binding.getRoot();
     }
