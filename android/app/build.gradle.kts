@@ -50,4 +50,8 @@ dependencies {
 
 //    gif
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.1.0")
+
+//    glide
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 }
