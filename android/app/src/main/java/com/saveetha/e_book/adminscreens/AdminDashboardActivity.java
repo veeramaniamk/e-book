@@ -28,6 +28,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
         binding = ActivityAdminDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.adminContainer, new AdminHomeFragment()).commit();
+
         binding.adminNavBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -40,15 +42,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     selectedFragment = new AdminHomeFragment();
                 } else if (itemId == R.id.admin_request) {
                     selectedFragment = new AdminRequestFragment();
-                }    else if (itemId == R.id.admin_profile) {
-                    selectedFragment = new AdminHomeFragment();
+                } else if (itemId == R.id.admin_profile) {
+                    selectedFragment = new AdminProfileFragment();
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.adminContainer, selectedFragment).commit();
                 return true;
             }
         });
-
 
 
     }

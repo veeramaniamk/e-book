@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.saveetha.e_book.userscreens.BooksListActivity;
-import com.saveetha.e_book.userscreens.adapters.CategoryListAdapter;
 import com.saveetha.e_book.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
