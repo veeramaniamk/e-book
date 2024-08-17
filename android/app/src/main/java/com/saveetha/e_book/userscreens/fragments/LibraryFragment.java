@@ -1,4 +1,4 @@
-package com.saveetha.e_book.fragments;
+package com.saveetha.e_book.userscreens.fragments;
 
 import android.os.Bundle;
 

@@ -1,18 +1,15 @@
-package com.saveetha.e_book;
+package com.saveetha.e_book.userscreens;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.ActivityUserDashboardBinding;
-import com.saveetha.e_book.fragments.HomeFragment;
-import com.saveetha.e_book.fragments.LibraryFragment;
-import com.saveetha.e_book.fragments.ProfileFragment;
+import com.saveetha.e_book.userscreens.fragments.HomeFragment;
+import com.saveetha.e_book.userscreens.fragments.LibraryFragment;
+import com.saveetha.e_book.userscreens.fragments.ProfileFragment;
 
 public class UserDashboardActivity extends AppCompatActivity {
 

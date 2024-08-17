@@ -20,7 +20,7 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".BooksListActivity"
+            android:name=".userscreens.BooksListActivity"
             android:exported="false" />
         <activity
             android:name=".adminscreens.AdminDashboardActivity"
@@ -44,7 +44,9 @@
         <activity
             android:name=".reviewerscrees.ReviewerDashboardActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".userscreens.UserDashboardActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" >

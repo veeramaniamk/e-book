@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.LibraryFragment">
+    tools:context=".userscreens.fragments.LibraryFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -28,33 +28,8 @@
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <TextView
-        android:id="@+id/savedTV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/arrow_right"
-        android:paddingVertical="5dp"
-        android:text="Saved"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/finishedTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/arrow_right"
-        android:paddingVertical="5dp"
-        android:text="Finished"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/savedTV" />
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
