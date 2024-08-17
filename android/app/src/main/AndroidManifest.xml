@@ -15,6 +15,15 @@
         android:theme="@style/Theme.EBook"
         tools:targetApi="31">
         <activity
+            android:name=".adminscreens.AdminPurchasedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adminscreens.AdminReviewedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adminscreens.AdminAuthorsActivity"
+            android:exported="false" />
+        <activity
             android:name=".adminscreens.AdminBookDetailsActivity"
             android:exported="false" />
         <activity
@@ -53,7 +62,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>
