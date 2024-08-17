@@ -12,18 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.saveetha.e_book.BooksListActivity;
 import com.saveetha.e_book.R;
 import com.squareup.picasso.Picasso;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
+public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHolder> {
 
-    private List<Category> categories;
+    private List<Category> books;
     private Context context;
 
-    public CategoryListAdapter(Context context, List<Category> categories) {
+    public BookListAdapter(Context context, List<Category> books) {
         this.context = context;
-        this.categories = categories;
+        this.books = books;
     }
 
     @NonNull
@@ -36,11 +35,10 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Category category = categories.get(position);
-        holder.categoryName.setText(category.getName());
-        Picasso.get().load(imageUrl).into(holder.categoryImage);
-
-        holder.category.setOnClickListener(v -> {
+        Category book = books.get(position);
+        holder.bookName.setText(book.getName());
+        Picasso.get().load(imageUrl).into(holder.bookImage);
+        holder.book.setOnClickListener(v -> {
             Intent intent = new Intent(context, BooksListActivity.class);
             intent.putExtra("CATEGORY_NAME", category.getName());
             context.startActivity(intent);
@@ -49,20 +47,19 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return books.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView categoryImage;
-        TextView categoryName;
-        ConstraintLayout category;
+        ImageView bookImage;
+        TextView bookName;
+        ConstraintLayout book;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            categoryImage = itemView.findViewById(R.id.categoryIV);
-            categoryName = itemView.findViewById(R.id.categoryTV);
-            category = itemView.findViewById(R.id.categoryCL);
+            bookImage = itemView.findViewById(R.id.categoryIV);
+            bookName = itemView.findViewById(R.id.categoryTV);
+            book = itemView.findViewById(R.id.categoryCL);
         }
     }
-public class CategoryListAdapter {
 }
