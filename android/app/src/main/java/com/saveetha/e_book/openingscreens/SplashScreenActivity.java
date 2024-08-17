@@ -16,7 +16,7 @@ import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 2000; // 2 seconds
+    private static int SPLASH_TIME_OUT = 1000; // 2 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this, AdminDashboardActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, SignInActivity.class);
                 startActivity(intent);
                 finish();
             }
