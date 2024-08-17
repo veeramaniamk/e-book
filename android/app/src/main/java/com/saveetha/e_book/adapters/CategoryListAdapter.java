@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.saveetha.e_book.BooksListActivity;
 import com.saveetha.e_book.R;
+import com.squareup.picasso.Picasso;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.ViewHolder> {
 
@@ -37,7 +38,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categories.get(position);
         holder.categoryName.setText(category.getName());
-        holder.categoryImage.setImageResource(category.getImageResId());
+        Picasso.get().load(imageUrl).into(holder.categoryImage);
 
         holder.category.setOnClickListener(v -> {
             Intent intent = new Intent(context, BooksListActivity.class);
