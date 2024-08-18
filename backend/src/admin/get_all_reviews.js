@@ -45,4 +45,4 @@ const getAllReviews = (req, res) => {
 
 }
 
-module.exports = {getAllReviews}
+module.exports = {getAllReviews};
