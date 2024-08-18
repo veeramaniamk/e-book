@@ -30,6 +30,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        CategoryListAdapter adapter = new CategoryListAdapter(this, categories);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL,false);
+        binding.categoryRV.setLayoutManager(gridLayoutManager);
+        binding.categoryRV.setAdapter(adapter);
+
         return binding.getRoot();
     }
 }
