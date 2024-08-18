@@ -53,8 +53,10 @@ const add_book = (req, res) => {
             const book_description  = req.body.book_description;
             const auther_name       = req.body.auther_name;
             const year              = req.body.year_of_the_book;
+            const category_name     = req.body.category_name;
+            const book_price        = req.body.book_price;
 
-            if(!publisher_id || !publisher_name || !book_titile || !book_description || !auther_name || !year) {
+            if(!publisher_id || !book_price || !category_name || !publisher_name || !book_titile || !book_description || !auther_name || !year) {
                 return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
             }
 
@@ -65,9 +67,9 @@ const add_book = (req, res) => {
             const book_submit_date  = new Date();
             const book_approval     = 'NEW';
 
-            const query = `INSERT INTO e_books(publisher_id, publisher_name, book_titile, book_description, book_cover_image, book_pdf, demo_file, auther_name, year_of_the_book, book_submit_date, book_approval) VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+            const query = `INSERT INTO e_books(publisher_id, publisher_name, book_titile, book_description, book_cover_image, book_pdf, demo_file, category_name, auther_name, year_of_the_book, price, book_submit_date, book_approval) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
-            mysql.query(query, [publisher_id, publisher_name, book_titile, book_description, coverImageName, bookName, demoFile, auther_name, year, book_submit_date, book_approval], (err, result) => {
+            mysql.query(query, [publisher_id, publisher_name, book_titile, book_description, coverImageName, bookName, demoFile, category_name, auther_name, year, book_price, book_submit_date, book_approval], (err, result) => {
                 if(err) {
                     const error = { message:'Error', error:err };
                     console.log(error);
