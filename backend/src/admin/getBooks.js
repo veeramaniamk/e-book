@@ -1,29 +1,25 @@
 const mysql = require("../database/connection");
 
-const getBooks = (req, res) => {
+const getAllBooks = (req, res) => {
 
-    const { publisher_id, status } = req.body;
-    
     const SITE_COVER_IMAGE_URL = req.protocol + '://' + req.get('host') + '/cover_image/';
     const SITE_BOOK_URL        = req.protocol + '://' + req.get('host') + '/books/';
     const SITE_DEMO_BOOK_URL   = req.protocol + '://' + req.get('host') + '/demo_page/';
 
-    if(!publisher_id) {
+    const book_approval = req.query.book_approval;
+
+    if(!book_approval) {
         return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
-    let query = ``;
+    let query =``;
 
-    if(!status) {
-        query = `SELECT * FROM e_books WHERE publisher_id = ${publisher_id}`;
+    if(book_approval === 'APPROVED') {
+        query = `SELECT * FROM e_books WHERE book_approval='APPROVED'`;
+    }else if(book_approval === 'CANCELLED') {
+        query = `SELECT * FROM e_books WHERE book_approval='CANCELLED'`;
     }else {
-        if(status == 'NEW') {
-            query = `SELECT * FROM e_books WHERE publisher_id = ${publisher_id} AND book_approval='NEW' `;
-        } else if(status == 'APPROVED') {
-            query = `SELECT * FROM e_books WHERE publisher_id = ${publisher_id} AND book_approval='APPROVED' `;
-        } else if(status == 'CANCELLED') {
-            query = `SELECT * FROM e_books WHERE publisher_id = ${publisher_id} AND book_approval='CANCELLED' `;
-        }
+        query = `SELECT * FROM e_books WHERE book_approval='NEW'`;
     }
 
     mysql.query(query, (err, result) => {
@@ -45,12 +41,11 @@ const getBooks = (req, res) => {
             book.publisher_id           = element.publisher_id;
             book.publisher_name         = element.publisher_name;
             book.book_title             = element.book_title;
-            book.book_description       = element.book_description;
+            // book.book_description       = element.book_description;
             book.book_cover_image       = SITE_COVER_IMAGE_URL + element.book_cover_image;
-            book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
-            book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;   
+            // book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
+            // book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;
             book.auther_name            = element.auther_name;
-            book.category_name          = element.category_name;
             book.year_of_the_book       = element.year_of_the_book;
             book.book_submit_date       = element.book_submit_date;
             book.book_approval_status   = element.book_approval;
@@ -62,7 +57,10 @@ const getBooks = (req, res) => {
         return res.status(200).send({status:200, message:"Success", data:sendBook});
 
     })
+}
+
+const getBooksUsingCategory = (req, res) => {
 
 }
 
-module.exports = { getBooks };
+module.exports = { getAllBooks, getBooksUsingCategory };
