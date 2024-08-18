@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), BooksListActivity.class);
-                intent.putExtra("CATEGORY_TYPE","ALL")
+                intent.putExtra("CATEGORY_TYPE","ALL");
                 startActivity(intent);
             }
         });
