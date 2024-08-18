@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
 import com.saveetha.e_book.databinding.ActivitySignInBinding;
+import com.saveetha.e_book.reviewerscrees.ReviewerDashboardActivity;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.signInBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, AdminDashboardActivity.class));
+            startActivity(new Intent(this, ReviewerDashboardActivity.class));
             finish();
             signin();
         });
