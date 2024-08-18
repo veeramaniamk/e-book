@@ -15,6 +15,12 @@
         android:theme="@style/Theme.EBook"
         tools:targetApi="31">
         <activity
+            android:name=".reviewerscrees.ReviewerAddBookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".reviewerscrees.ReviewerAddCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".adminscreens.AdminPurchasedActivity"
             android:exported="false" />
         <activity
