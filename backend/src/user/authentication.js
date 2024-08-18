@@ -14,7 +14,7 @@ async function registerUser(req, res) {
                 const error = { message:'Error', error:err };
                 console.log(error);
                 return res.status(500).send({status:500, message:error.message});
-            } 
+            }
 
             return res.status(201).send({status: 201, message: 'User Registered Successfully' });
 

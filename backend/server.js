@@ -17,6 +17,7 @@ app.use('/asserts', express.static('C:\\VEERAMANI\\book\\e-book\\backend\\src\\u
 app.use('/books', express.static('C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\books\\'));
 app.use('/cover_image', express.static('C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\cover_image\\'));
 app.use('/demo_page', express.static('C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\demo_file\\'));
+app.use('/category_image', express.static('C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\category_images\\'));
 
 app.use('/user', user);
 app.use('/admin', admin);
