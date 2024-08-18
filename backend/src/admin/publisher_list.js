@@ -38,4 +38,4 @@ const getPublisher = (req, res) => {
 
 }
 
-module.exports = { getPublisher };
+module.exports = { getPublisher }
