@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,9 +33,7 @@ public class ReviewerDashboardActivity extends AppCompatActivity {
 
         binding = ActivityReviewerDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setupNavBottom();
-
 
     }
 
