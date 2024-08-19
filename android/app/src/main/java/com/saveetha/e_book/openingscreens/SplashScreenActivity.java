@@ -1,5 +1,6 @@
 package com.saveetha.e_book.openingscreens;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +15,10 @@ import com.saveetha.e_book.MainActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 1000; // 2 seconds
+    private static final int SPLASH_TIME_OUT = 1000; // 2 seconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
