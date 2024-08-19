@@ -24,24 +24,20 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.signInBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, AdminDashboardActivity.class));
-            finish();
-            signin();
+            if(validateuser()) {
+                startActivity(new Intent(this, AdminDashboardActivity.class));
+                finish();
+            }
         });
 
         binding.registerTV.setOnClickListener(v -> {
             startActivity(new Intent(this, SignUpActivity.class));
         });
 
-
-
-
     }
 
-    private void signin() {
-        if(validateuser()){
+    private void apiCall(String email, String password) {
 
-        }
     }
 
     private boolean validateuser() {
@@ -62,9 +58,6 @@ public class SignInActivity extends AppCompatActivity {
             binding.passwordET.setError("Password is required");
             isValid = false;
         }
-
-
-
         return isValid;
     }
 }
