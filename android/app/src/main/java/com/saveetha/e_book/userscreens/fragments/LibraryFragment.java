@@ -19,6 +19,22 @@ public class LibraryFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentLibraryBinding.inflate(getLayoutInflater());
 
+//        binding.savedTV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+////                startActivity(intent);
+//            }
+//        });
+
+//        binding.finishedTV.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+////                startActivity(intent);
+//            }
+//        });
+
         return binding.getRoot();
     }
 }

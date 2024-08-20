@@ -50,7 +50,7 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
                 .into(holder.imageUrl);
         Toast.makeText(context, ""+adminBooksModule.getBookId(), Toast.LENGTH_SHORT).show();
         holder.bookName.setText(adminBooksModule.getBookName());
-        holder.descrption.setText(adminBooksModule.getDescription());
+        holder.description.setText(adminBooksModule.getDescription());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,8 +70,7 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        TextView bookName, descrption;
+        TextView bookName, description;
         ShapeableImageView imageUrl;
         CardView cardView;
 
@@ -79,7 +78,7 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
             super(itemView);
             imageUrl = itemView.findViewById(R.id.imageBook);
             bookName = itemView.findViewById(R.id.title);
-            descrption = itemView.findViewById(R.id.descriptionText);
+            description = itemView.findViewById(R.id.descriptionText);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }

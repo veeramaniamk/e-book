@@ -9,9 +9,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.RestClient;
@@ -86,5 +83,6 @@ public class AdminBookDetailsActivity extends AppCompatActivity {
                 Log.e("Error", t.getMessage());
             }
         });
+
     }
 }
