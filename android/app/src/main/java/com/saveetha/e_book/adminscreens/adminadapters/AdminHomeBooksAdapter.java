@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -42,20 +43,21 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
     public void onBindViewHolder(@NonNull AdminHomeBooksAdapter.MyViewHolder holder, int position) {
 
         AdminBooksModule adminBooksModule = adminBooksModuleList.get(position);
-
         Glide.with(context)
                 .load(adminBooksModule.getCoverImage())
                 .placeholder(R.drawable.book_icon)
                 .error(R.drawable.book_icon)
                 .into(holder.imageUrl);
-
+        Toast.makeText(context, ""+adminBooksModule.getBookId(), Toast.LENGTH_SHORT).show();
         holder.bookName.setText(adminBooksModule.getBookName());
         holder.description.setText(adminBooksModule.getDescription());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                context.startActivity(new Intent(context, AdminBookDetailsActivity.class));
+                Intent intent = new Intent(context, AdminBookDetailsActivity.class);
+                intent.putExtra("bookId", adminBooksModule.getBookId());
+                intent.putExtra("status",adminBooksModule.getStatus());
+                context.startActivity(intent);
 
             }
         });

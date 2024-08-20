@@ -5,7 +5,7 @@ const buyBook = (req, res) => {
     const { user_id, publisher_id, book_id, price, transaction_id } = req.body;
 
     if(!publisher_id || !user_id || !book_id || !price || !transaction_id) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     const query = `INSERT INTO purchased_books(user_id, publisher_id, book_id, price, transaction_id) VALUES (?, ?, ?, ?, ?)`;

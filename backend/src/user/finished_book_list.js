@@ -5,7 +5,7 @@ const finishBook = (req, res) => {
     const book_id = req.query.book_id;
 
     if(!user_id || !book_id) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     const query = `INSERT INTO finished_list(user_id, book_id) VALUES (${user_id},${book_id})`;
@@ -17,7 +17,7 @@ const finishBook = (req, res) => {
             return res.status(500).send({status:500, message:error.message, err:err});
         }
 
-        return res.status(201).send({status: 201, message: 'Book Saved Successfully' });
+        return res.status(200).send({status: 200, message: 'Book Saved Successfully' });
 
     })
 
@@ -32,7 +32,7 @@ const getFinishedBook = (req, res) => {
     const SITE_DEMO_BOOK_URL   = req.protocol + '://' + req.get('host') + '/demo_page/';
 
     if(!user_id) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     const query = `select * from finished_list inner join e_books on e_books.id=finished_list.book_id and finished_list.user_id=${user_id}`;
@@ -45,7 +45,7 @@ const getFinishedBook = (req, res) => {
         }
         
         if(result.length == 0) {
-            return res.status(400).send({status: 400, message: `You Don't Have Any Book` });
+            return res.status(200).send({status: 400, message: `You Don't Have Any Book` });
         }
 
         const data = [];
@@ -82,7 +82,7 @@ const checkFinishedBook = (req, res) => {
     const book_id = req.query.book_id;
 
     if(!user_id || !book_id) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     const query = `select * from finished_list where user_id = ${user_id} and book_id = ${book_id}`;
@@ -95,7 +95,7 @@ const checkFinishedBook = (req, res) => {
         }
 
         if(result.length > 0) {
-            return res.status(400).send({status: 400, message: 'Book Already Finished' });
+            return res.status(200).send({status: 400, message: 'Book Already Finished' });
         }
 
         finishBook(req, res);

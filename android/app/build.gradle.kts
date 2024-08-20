@@ -45,7 +45,12 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0")
+    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")
+
     implementation ("com.squareup.picasso:picasso:2.71828")
+
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
 //    gif

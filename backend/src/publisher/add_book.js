@@ -57,11 +57,11 @@ const add_book = (req, res) => {
             const book_price        = req.body.book_price;
 
             if(!publisher_id || !book_price || !category_name || !publisher_name || !book_titile || !book_description || !auther_name || !year) {
-                return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+                return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
             }
 
             if(!coverImageName || !bookName || !demoFile) {
-                return res.status(400).send({status: 400, message: 'File data empty!'});
+                return res.status(200).send({status: 400, message: 'File data empty!'});
             }
 
             const book_submit_date  = new Date();
@@ -79,7 +79,7 @@ const add_book = (req, res) => {
                 if(result.affectedRows!=0) {
                     return res.status(200).send({status:200, message:"Book Submitted Successfully"});
                 }else {
-                    return res.status(400).send({status:400, message:"Cannot Submite Book"});
+                    return res.status(200).send({status:400, message:"Cannot Submite Book"});
                 }
         
             })

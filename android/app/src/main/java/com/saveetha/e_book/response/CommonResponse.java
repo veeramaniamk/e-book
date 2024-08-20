@@ -2,13 +2,13 @@ package com.saveetha.e_book.response;
 
 public class CommonResponse {
     private String message;
-    private String status;
+    private int status;
 
     public String getMessage() {
         return message;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 }

@@ -109,6 +109,7 @@
         android:layout_height="wrap_content"
         android:text="Author Name"
         android:padding="5dp"
+        android:id="@+id/autherName"
         android:textStyle="italic|bold"
         android:textSize="14sp"
         android:elevation="10dp"
@@ -180,6 +181,5 @@
             android:text="Reject"/>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

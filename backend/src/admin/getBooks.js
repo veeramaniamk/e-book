@@ -9,7 +9,7 @@ const getAllBooks = (req, res) => {
     const book_approval = req.query.book_approval;
 
     if(!book_approval) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     let query =``;
@@ -30,7 +30,7 @@ const getAllBooks = (req, res) => {
         }
 
         if(result.length === 0) {
-            return res.status(401).send({status:401, message:`You Don't have any books`});
+            return res.status(200).send({status:401, message:`You Don't have any books`});
         }
 
         const sendBook = [];
@@ -40,8 +40,8 @@ const getAllBooks = (req, res) => {
             book.book_id                = element.id;
             book.publisher_id           = element.publisher_id;
             book.publisher_name         = element.publisher_name;
-            book.book_title             = element.book_title;
-            // book.book_description       = element.book_description;
+            book.book_title             = element.book_titile;
+            book.book_description       = element.book_description;
             book.book_cover_image       = SITE_COVER_IMAGE_URL + element.book_cover_image;
             // book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
             // book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;

@@ -1,28 +1,5 @@
 const mysql = require("../database/connection");
 
-const getBook = (req, res) => {
-
-    const book_id = req.query.book_id;
-    const user_id = req.query.user_id;
-
-    if(!book_id || !user_id) {
-        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
-    }
-
-    const query = `SELECT * FROM purchased_books WHERE user_id=? and book_id=?`;
-
-    mysql.query(query, [user_id, book_id], (err, result) => {
-        if(err) {
-            const error = { message:'Error', error:err };
-            console.log(error);
-            return res.status(500).send({status:500, message:error.message});
-        }
-
-        prepareBook(req, res, result.length);
-
-    })
-
-}
 
 const prepareBook = (req, res, length) => {
 
@@ -31,9 +8,12 @@ const prepareBook = (req, res, length) => {
     const SITE_DEMO_BOOK_URL   = req.protocol + '://' + req.get('host') + '/demo_page/';
 
     const book_id = req.query.book_id;
-    const user_id = req.query.user_id;
 
-    const query = `SELECT * FROM e_books WHERE book_approval='APPROVED' and id='${book_id}'`;
+    if(!book_id) {
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
+    }
+
+    const query = `SELECT * FROM e_books WHERE id='${book_id}'`;
 
     mysql.query(query, (err, result) => {
         if(err) {
@@ -51,8 +31,9 @@ const prepareBook = (req, res, length) => {
         book.book_id                = element.id;
         book.publisher_id           = element.publisher_id;
         book.publisher_name         = element.publisher_name;
-        book.book_title             = element.book_title;
+        book.book_title             = element.book_titile;
         book.book_description       = element.book_description;
+        book.status                 = element.book_approval;
         book.book_cover_image       = SITE_COVER_IMAGE_URL + element.book_cover_image;
         book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;
         book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
@@ -76,4 +57,4 @@ const prepareBook = (req, res, length) => {
 
 }
 
-module.exports = { getBook };
+module.exports = prepareBook;

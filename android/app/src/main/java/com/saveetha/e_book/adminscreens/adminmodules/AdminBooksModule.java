@@ -2,8 +2,26 @@ package com.saveetha.e_book.adminscreens.adminmodules;
 
 public class AdminBooksModule {
 
-    String bookName,coverImage,description,author,publisher,category;
-    String pages,price;
+    private String bookName,coverImage,description,author,publisher,category;
+    private String pages,price,status;
+
+
+    private int bookId;
+
+    public int getBookId() {
+        return bookId;
+    }
+    public AdminBooksModule(int bookId,String bookName, String coverImage, String description,String status) {
+        this.bookId= bookId;
+        this.bookName = bookName;
+        this.coverImage = coverImage;
+        this.description = description;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public AdminBooksModule(String bookName, String coverImage, String description) {
         this.bookName = bookName;

@@ -14,7 +14,7 @@ const getPublisher = (req, res) => {
         }
 
         if(result.length === 0) {
-            return res.status(401).send({status:401, message:`You Don't have any books`});
+            return res.status(200).send({status:401, message:`You Don't have any books`});
         }
 
         const users = [];

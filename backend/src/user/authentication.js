@@ -22,7 +22,7 @@ async function registerUser(req, res) {
                 return res.status(500).send({status:500, message:error.message});
             }
 
-            return res.status(201).send({status: 201, message: 'User Registered Successfully' });
+            return res.status(200).send({status: 200, message: 'User Registered Successfully' });
 
         });
 
@@ -37,7 +37,7 @@ function signup(req, res) {
     const body = req.body;
 
     if(!body.name || !body.phone || !body.email || !body.user_type || !body.gender || !body.password) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     try {
@@ -52,7 +52,7 @@ function signup(req, res) {
             } 
             
             if(result.length > 0) {
-                return res.status(409).send({status:409, message:'User already exists'});
+                return res.status(200).send({status:409, message:'User already exists'});
             } 
 
             registerUser(req, res);
@@ -72,7 +72,7 @@ const signin = (req, res) => {
     const SITE_URL = req.protocol + '://' + req.get('host') + '/asserts/';
 
     if(!email || !password){
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     try {
@@ -87,7 +87,7 @@ const signin = (req, res) => {
                 }    
                 
                 if(result.length === 0) {
-                    return res.status(401).send({status:401, message:'Invalid credentials'});
+                    return res.status(200).send({status:401, message:'Invalid credentials'});
                 }
 
                 if(password == result[0].password) {
@@ -106,7 +106,7 @@ const signin = (req, res) => {
                     return res.status(200).send({ status:200, message:'Login Success', data:user });
                 
                 }else {
-                    return res.status(401).send({ status:401, message:'Incorrect Password' }); 
+                    return res.status(200).send({ status:401, message:'Incorrect Password' }); 
                 }
             
         });
@@ -130,7 +130,7 @@ module.exports = { signup, signin };
                 return res.status(500).send({status:500, message:error.message});
             }
 
-            return res.status(201).send({status: 201, message: 'User Registered Successfully' });
+            return res.status(200).send({status: 200, message: 'User Registered Successfully' });
 
         });
 
@@ -145,7 +145,7 @@ function signup(req, res) {
     const body = req.body;
 
     if(!body.name || !body.phone || !body.email || !body.user_type || !body.gender || !body.password) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     try {
@@ -160,7 +160,7 @@ function signup(req, res) {
             } 
             
             if(result.length > 0) {
-                return res.status(409).send({status:409, message:'User already exists'});
+                return res.status(200).send({status:409, message:'User already exists'});
             } 
 
             registerUser(req, res);
@@ -180,7 +180,7 @@ const signin = (req, res) => {
     const SITE_URL = req.protocol + '://' + req.get('host') + '/asserts/';
 
     if(!email || !password){
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     try {
@@ -195,7 +195,7 @@ const signin = (req, res) => {
                 }    
                 
                 if(result.length === 0) {
-                    return res.status(401).send({status:401, message:'Invalid credentials'});
+                    return res.status(200).send({status:401, message:'Invalid credentials'});
                 }
 
                 if(password == result[0].password) {
@@ -214,7 +214,7 @@ const signin = (req, res) => {
                     return res.status(200).send({ status:200, message:'Login Success', data:user });
                 
                 }else {
-                    return res.status(401).send({ status:401, message:'Incorrect Password' }); 
+                    return res.status(200).send({ status:401, message:'Incorrect Password' }); 
                 }
             
         });
