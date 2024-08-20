@@ -3,28 +3,38 @@ package com.saveetha.e_book.adminscreens;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.saveetha.e_book.R;
+import com.saveetha.e_book.RestClient;
 import com.saveetha.e_book.adminscreens.adminadapters.AdminHomeBooksAdapter;
 import com.saveetha.e_book.adminscreens.adminmodules.AdminBooksModule;
 import com.saveetha.e_book.databinding.FragmentAdminHomeBinding;
 import com.saveetha.e_book.databinding.FragmentAdminRejectedBinding;
+import com.saveetha.e_book.response.admin.GetBooksData;
+import com.saveetha.e_book.response.admin.GetBooksResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdminRejectedFragment extends Fragment {
 
 
     FragmentAdminRejectedBinding binding;
-    List<AdminBooksModule> adminBooksModuleList;
+    List<AdminBooksModule> adminBooksModuleList=new ArrayList<>();
 
     FragmentActivity activity;
     Context context;
@@ -44,22 +54,45 @@ public class AdminRejectedFragment extends Fragment {
             e.printStackTrace();
         }
 
-        loadRejectedBooks();
+        apiCall("CANCELLED");
 
         return binding.getRoot();
     }
 
-    private void loadRejectedBooks() {
-        adminBooksModuleList = new ArrayList<>();
+    private void apiCall(String status) {
+        Call<GetBooksResponse> responseCall = RestClient.makeAPI().getBooksAdminHomePage(status);
+        responseCall.enqueue(new Callback<GetBooksResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GetBooksResponse> call, @NonNull Response<GetBooksResponse> response) {
+                if(response.isSuccessful()) {
+                    GetBooksResponse getBooksResponse = response.body();
+                    List<GetBooksData> data = getBooksResponse.getData();
+                    if(data==null){
+                        Toast.makeText(context, ""+getBooksResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(getBooksResponse.getStatus() == 200) {
+                        for(GetBooksData data1 : data) {
+                            adminBooksModuleList.add(new AdminBooksModule(data1.getBook_id(),data1.getBook_title(),data1.getBook_cover_image(),data1.getBook_description(),data1.getBook_approval_status()));
+                        }
+                        AdminHomeBooksAdapter adminHomeBooksAdapter = new AdminHomeBooksAdapter(adminBooksModuleList,context);
 
-        adminBooksModuleList.add(new AdminBooksModule("Anesthesia","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        adminBooksModuleList.add(new AdminBooksModule("pharmacist","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        adminBooksModuleList.add(new AdminBooksModule("Pharmaceutics","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        adminBooksModuleList.add(new AdminBooksModule("Anesthesia","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
+                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                        binding.recyclerView.setAdapter(adminHomeBooksAdapter);
+                    }else {
+                        Toast.makeText(context, ""+getBooksResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
-        AdminHomeBooksAdapter adminHomeBooksAdapter = new AdminHomeBooksAdapter(adminBooksModuleList,context);
+                } else {
+                    Toast.makeText(context, ""+response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        binding.recyclerView.setAdapter(adminHomeBooksAdapter);
+            @Override
+            public void onFailure(@NonNull Call<GetBooksResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
     }
 }

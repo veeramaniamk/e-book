@@ -11,7 +11,7 @@ const getAllPurchesedBooks = (req, res) => {
     const {publisher_id} = req.body;
 
     if(!publisher_id) {
-        return res.status(400).send({ status: 400, message: 'Fields cannot be empty!' });
+        return res.status(200).send({ status: 400, message: 'Fields cannot be empty!' });
     }
 
     let query = `select pb.id , pb.date as purchased_book_date, pb.transaction_id as purchased_book_transaction_id, 
@@ -28,7 +28,7 @@ const getAllPurchesedBooks = (req, res) => {
        }
 
        if(result.length === 0){
-           return res.status(400).send({status:400, message:"Not Found"});
+           return res.status(200).send({status:400, message:"Not Found"});
        }
 
        const sendData = [];

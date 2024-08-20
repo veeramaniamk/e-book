@@ -15,7 +15,7 @@ const getAllReviews = (req, res) => {
        }
 
        if(result.length === 0){
-           return res.status(400).send({status:400, message:"Not Found"});
+           return res.status(200).send({status:400, message:"Not Found"});
        }
 
        const data = [];

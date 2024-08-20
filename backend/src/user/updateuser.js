@@ -27,7 +27,7 @@ function chagneProfileImage(req, res) {
           const user_id = req.body.user_id;
           
           if (!user_id || !req.file) {
-            return res.status(400).send({status:400, error: 'Content or image data missing'});
+            return res.status(200).send({status:400, error: 'Content or image data missing'});
           }
 
           const sql = `update signup set profile_photo = '${fileName}' where id = ${user_id}`;
@@ -51,7 +51,7 @@ function modifyUserInfo(req, res) {
     const { name, phone, email, gender, user_id } = req.body;
 
     if(!name || !phone || !email || !gender || !user_id) {
-      return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+      return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     const query = `UPDATE signup SET name=?, phone=?, email=?, gender=? WHERE id=?`;
@@ -73,7 +73,7 @@ async function setPassword(req, res) {
     const { user_id, current_password, new_password } = req.body;
 
     if(!user_id || !current_password || !new_password) {
-      return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+      return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     const query = `UPDATE signup SET password=? WHERE id=?`;
@@ -96,7 +96,7 @@ function changePassword(req, res) {
   const { user_id, email, current_password, new_password } = req.body;
 
   if(!user_id || !email || !current_password || !new_password) {
-    return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+    return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
   }
 
   const query = `SELECT * FROM signup where email= ? and id = ?`;
@@ -109,11 +109,11 @@ function changePassword(req, res) {
     } 
 
     if(result.length <= 0) {
-      return res.status(401).send({ status:401, message:'Invalid credentials' });
+      return res.status(200).send({ status:401, message:'Invalid credentials' });
     }
 
     if(!(current_password === result[0].password)) {
-      return res.status(401).send({ status:401, message:'Incorrect Password' });
+      return res.status(200).send({ status:401, message:'Incorrect Password' });
     }
 
     setPassword(req,res);

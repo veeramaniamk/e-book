@@ -26,7 +26,7 @@ const addCategory = (req, res) => {
         const category_name = req.body.category_name;
         
         if (!category_name || !req.file) {
-          return res.status(400).send({status:400, message: 'Content or image data missing'});
+          return res.status(200).send({status:400, message: 'Content or image data missing'});
         }
 
         const query = `INSERT INTO books_category(category_name, category_image) VALUES ('${category_name}','${fileName}')`;
@@ -49,7 +49,7 @@ const deleteCategory = (req, res) => {
     const category_id = req.query.category_id;
 
     if (!category_id) {
-        return res.status(400).send({status:400, message: 'Content missing'});
+        return res.status(200).send({status:400, message: 'Content missing'});
     }
 
     const query = `DELETE FROM books_category WHERE id = ${category_id}`;
@@ -63,7 +63,7 @@ const deleteCategory = (req, res) => {
         if(result.affectedRows!=0) {
             return res.status(200).send({ status: 200, message: 'Category Deleted Successfully' });
         }else {
-            return res.status(400).send({status:400, message: "Category Deletion Failed"});
+            return res.status(200).send({status:400, message: "Category Deletion Failed"});
         }
 
     });
@@ -81,7 +81,7 @@ const updateCategory = (req, res) => {
         const category_id   = req.body.category_id;
         
         if (!category_name || !category_id) {
-          return res.status(400).send({status:400, message: 'Content missing'});
+          return res.status(200).send({status:400, message: 'Content missing'});
         }
 
         let query = ``;
@@ -101,7 +101,7 @@ const updateCategory = (req, res) => {
             if(result.affectedRows!=0) {
                 return res.status(200).send({ status: 200, message: 'Category Updated Successfully' });
             }else {
-                return res.status(400).send({status:400, message: "Category Update Failed"});
+                return res.status(200).send({status:400, message: "Category Update Failed"});
             }
 
         });
@@ -124,7 +124,7 @@ const getCategory = (req, res) => {
         }
 
         if(result.length === 0) {
-            return res.status(401).send({status:401, message:`Category Empty`});
+            return res.status(200).send({status:401, message:`Category Empty`});
         }
 
         const sendBook = [];

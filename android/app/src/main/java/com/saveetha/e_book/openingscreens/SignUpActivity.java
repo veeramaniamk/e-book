@@ -1,18 +1,33 @@
 package com.saveetha.e_book.openingscreens;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.saveetha.e_book.R;
+import com.saveetha.e_book.RestClient;
 import com.saveetha.e_book.databinding.ActivitySignUpBinding;
+import com.saveetha.e_book.request.SignUpRequest;
+import com.saveetha.e_book.request.Signin;
+import com.saveetha.e_book.response.CommonResponse;
+import com.saveetha.e_book.response.SignInResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity {
 
     ActivitySignUpBinding binding;
 
     String name, email, password, confirmPassword, phoneNumber, gender;
+
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +39,10 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.signInBtn.setOnClickListener(v -> {
-            finish();
-            signup();
+            if(validatesignup()){
+                apiCall(name, email, phoneNumber, "100", gender, password);
+            }
+
         });
 
 
@@ -34,10 +51,39 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void signup() {
-        if(validatesignup()){
-//            signUpUser();
-        }
+    private void apiCall(String name, String email, String phoneNumber, String user_type, String gender, String password) {
+
+        SignUpRequest signUpRequest = new SignUpRequest(
+                name,
+                email,
+                phoneNumber,
+                user_type,
+                gender, password
+        );
+        Call<CommonResponse> responseCall = RestClient.makeAPI().signUp(signUpRequest);
+        responseCall.enqueue(new Callback<CommonResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                if(response.isSuccessful()) {
+
+                    if(response.body().getStatus()==200){
+                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else {
+                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
     }
 
     private boolean validatesignup() {

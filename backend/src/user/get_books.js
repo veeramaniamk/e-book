@@ -9,7 +9,7 @@ const getAllBooks = (req, res) => {
     const category_name = req.query.category_name;
 
     if(!category_name) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     let query =``;
@@ -28,7 +28,7 @@ const getAllBooks = (req, res) => {
         }
 
         if(result.length === 0) {
-            return res.status(401).send({status:401, message:`You Don't have any books`});
+            return res.status(200).send({status:401, message:`You Don't have any books`});
         }
 
         const sendBook = [];

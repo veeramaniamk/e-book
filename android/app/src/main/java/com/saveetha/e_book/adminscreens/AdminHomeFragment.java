@@ -33,11 +33,10 @@ public class AdminHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentAdminHomeBinding.inflate(inflater, container, false);
-        binding.viewPager.setUserInputEnabled(false);
 
         try {
-            activity = getActivity();
-            context = getContext();
+            activity = requireActivity();
+            context = requireContext();
 
         } catch (Exception e) {
             e.printStackTrace();

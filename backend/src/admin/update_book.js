@@ -5,7 +5,7 @@ const approveBook = (req, res) => {
     const { book_id, publisher_id } = req.body;
 
     if(!book_id || !publisher_id) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     const book_approval_msg = 'APPROVED';
@@ -28,7 +28,7 @@ const approveBook = (req, res) => {
         if(result.affectedRows!=0) {
             return res.status(200).send({status:200, message:"Updated Successfully"});
         }else {
-            return res.status(400).send({status:400, message:"Update Failed"});
+            return res.status(200).send({status:400, message:"Update Failed"});
         }
 
     })
@@ -40,7 +40,7 @@ const cancelBook = (req, res) => {
     const { book_id, publisher_id, cancelMsg  } = req.body;
 
     if(!book_id || !publisher_id || !cancelMsg) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     const book_approval_msg = 'CANCELLED';
@@ -63,7 +63,7 @@ const cancelBook = (req, res) => {
         if(result.affectedRows!=0) {
             return res.status(200).send({status:200, message:"Updated Successfully"});
         }else {
-            return res.status(400).send({status:400, message:"Update Failed"});
+            return res.status(200).send({status:400, message:"Update Failed"});
         }
 
     })

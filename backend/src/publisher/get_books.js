@@ -9,7 +9,7 @@ const getBooks = (req, res) => {
     const SITE_DEMO_BOOK_URL   = req.protocol + '://' + req.get('host') + '/demo_page/';
 
     if(!publisher_id) {
-        return res.status(400).send({status: 400, message: 'Fields cannot be empty!'});
+        return res.status(200).send({status: 400, message: 'Fields cannot be empty!'});
     }
 
     let query = ``;
@@ -34,7 +34,7 @@ const getBooks = (req, res) => {
         }
 
         if(result.length === 0) {
-            return res.status(401).send({status:401, message:`You Don't have any books`});
+            return res.status(200).send({status:401, message:`You Don't have any books`});
         }
 
         const sendBook = [];
