@@ -1,8 +1,10 @@
 package com.saveetha.e_book.reviewerscrees;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +15,10 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.saveetha.e_book.Constant;
 import com.saveetha.e_book.RestClient;
@@ -39,7 +44,8 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
     ActivityReviewerAddBookBinding binding;
 
     private String uploadImageET, titleET, uploadPDFET, authorET, publisherET, yearET, category, priceET;
-    private String publisher_id, publisher_name, description;
+    private String publisher_name, description;
+    private int publisher_id;
 
     private RequestBody publisher_id_req, title_req, upload_pdf_req, author_req, publisher_name_req, year_req, category_req, price_req, description_req;
     private MultipartBody.Part image_req, pdf_req, demo_req;
@@ -53,11 +59,18 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         SharedPreferences sf = SF.getSignInSF(this);
-        publisher_id = sf.getString(Constant.ID_SI_SF, null);
+        publisher_id = sf.getInt(Constant.ID_SI_SF, 0);
         publisher_name = sf.getString(Constant.NAME_SI_SF, null);
+        permissionCheck();
         onClick();
         loadSpinner();
 
+    }
+
+    private void permissionCheck() {
+        if(ContextCompat.checkSelfPermission(ReviewerAddBookActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(ReviewerAddBookActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE));
+        }
     }
 
     private void loadSpinner() {
@@ -147,7 +160,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
             intent.setType("*/*");
             intent.addCategory(intent.CATEGORY_OPENABLE);
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            pickPDFLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+            pickPDFLauncher.launch(Intent.createChooser(intent, "Select PDF"));
 
         });
 
@@ -156,7 +169,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
             intent.setType("*/*");
             intent.addCategory(intent.CATEGORY_OPENABLE);
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            pickDemoPDFLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+            pickDemoPDFLauncher.launch(Intent.createChooser(intent, "Select Demo PDF"));
         });
 
 
@@ -164,14 +177,14 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
 
     private boolean changetexttoparts() {
 
-        publisher_id_req = RequestBody.create(MultipartBody.FORM, publisher_id);
-        publisher_name_req = RequestBody.create(MultipartBody.FORM, publisher_name);
-        title_req = RequestBody.create(MultipartBody.FORM, titleET);
-        description_req = RequestBody.create(MultipartBody.FORM, description);
-        author_req = RequestBody.create(MultipartBody.FORM, authorET);
-        year_req = RequestBody.create(MultipartBody.FORM, yearET);
-        category_req = RequestBody.create(MultipartBody.FORM, category);
-        price_req = RequestBody.create(MultipartBody.FORM, priceET);
+        publisher_id_req = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(publisher_id));
+        publisher_name_req = RequestBody.create(MediaType.parse("text/plain"), publisher_name);
+        title_req = RequestBody.create(MediaType.parse("text/plain"), titleET);
+        description_req = RequestBody.create(MediaType.parse("text/plain"), description);
+        author_req = RequestBody.create(MediaType.parse("text/plain"), authorET);
+        year_req = RequestBody.create(MediaType.parse("text/plain"), yearET);
+        category_req = RequestBody.create(MediaType.parse("text/plain"), category);
+        price_req = RequestBody.create(MediaType.parse("text/plain"), priceET);
 
         return true;
     }
@@ -189,6 +202,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
         priceET = binding.priceET.getText().toString();
         uploadImageET = binding.uploadImageET.getText().toString();
         uploadPDFET = binding.uploadPDFET.getText().toString();
+        description = binding.descriptionET.getText().toString();
 
 
         if (uploadImageET.isEmpty()) {
@@ -229,7 +243,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
         }
 
         if (category.isEmpty()) {
-
+            Toast.makeText(this, "Choose Category", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
 
@@ -297,5 +311,13 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
             }
     );
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+        } else {
+            Toast.makeText(this, "Permission Denied! Give permission to continue", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

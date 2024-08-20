@@ -13,6 +13,8 @@ import com.saveetha.e_book.MainActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.SF;
 import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
+import com.saveetha.e_book.reviewerscrees.ReviewerDashboardActivity;
+import com.saveetha.e_book.userscreens.UserDashboardActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
@@ -29,9 +31,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SharedPreferences sf = SF.getSignInSF(SplashScreenActivity.this);
-                if(sf.getString(Constant.NAME_SI_SF,null)!=null){
-                    startActivity(new Intent(SplashScreenActivity.this, AdminDashboardActivity.class));
-                }else {
+                if (sf.getString(Constant.SIGN_IN_SF, null) != null) {
+                    if (sf.getInt(Constant.USER_TYPE_SI_SF, 0) == 111) {
+                        startActivity(new Intent(SplashScreenActivity.this, AdminDashboardActivity.class));
+                    } else if (sf.getInt(Constant.USER_TYPE_SI_SF, 0) == 110) {
+                        startActivity(new Intent(SplashScreenActivity.this, ReviewerDashboardActivity.class));
+                    } else if (sf.getInt(Constant.USER_TYPE_SI_SF, 0) == 100) {
+                        startActivity(new Intent(SplashScreenActivity.this, UserDashboardActivity.class));
+                    }
+                } else {
                     Intent intent = new Intent(SplashScreenActivity.this, SignInActivity.class);
                     startActivity(intent);
                 }

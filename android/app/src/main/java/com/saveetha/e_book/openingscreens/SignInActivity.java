@@ -20,6 +20,7 @@ import com.saveetha.e_book.request.Signin;
 import com.saveetha.e_book.response.SignInData;
 import com.saveetha.e_book.response.SignInResponse;
 import com.saveetha.e_book.reviewerscrees.ReviewerDashboardActivity;
+import com.saveetha.e_book.userscreens.UserDashboardActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +51,6 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
-
     private void apiCall(String email, String password) {
 
         Signin signInRequest = new Signin();
@@ -78,11 +78,13 @@ public class SignInActivity extends AppCompatActivity {
                         editor.putString(Constant.PROFILE_SI_SF, data.getProfile());
                         editor.putString(Constant.GENDER_SI_SF, data.getGender());
                         editor.apply();
+
+
                         if(data.getUserType()==100) {
-                            startActivity(new Intent(SignInActivity.this, AdminDashboardActivity.class));
+                            startActivity(new Intent(SignInActivity.this, UserDashboardActivity.class));
                         }else if(data.getUserType()==110) {
-                            startActivity(new Intent(SignInActivity.this, AdminDashboardActivity.class));
-                        }else {
+                            startActivity(new Intent(SignInActivity.this, ReviewerDashboardActivity.class));
+                        }else if(data.getUserType()==111){
                             startActivity(new Intent(SignInActivity.this, AdminDashboardActivity.class));
                         }
                         finish();
@@ -110,12 +112,12 @@ public class SignInActivity extends AppCompatActivity {
         email    = binding.emailET.getText().toString();
         password = binding.passwordET.getText().toString();
 
-        if(email.isEmpty()) {
-            binding.emailET.setError("Email is required");
-            isValid = false;
-        }
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.emailET.setError("Invalid email");
+            isValid = false;
+        }
+        if(email.isEmpty()) {
+            binding.emailET.setError("Email is required");
             isValid = false;
         }
         if(password.isEmpty()) {
