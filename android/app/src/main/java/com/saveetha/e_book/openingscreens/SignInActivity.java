@@ -35,6 +35,12 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    private void signin() {
+        if(validateuser()){
+
+        }
+    }
+
     private void apiCall(String email, String password) {
 
     }

@@ -68,7 +68,6 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView bookName, description;
         ShapeableImageView imageUrl;
         CardView cardView;
