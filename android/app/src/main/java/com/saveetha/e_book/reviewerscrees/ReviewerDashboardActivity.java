@@ -34,10 +34,7 @@ public class ReviewerDashboardActivity extends AppCompatActivity {
 
         binding = ActivityReviewerDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setupNavBottom();
-
-
     }
 
     private void setupNavBottom() {

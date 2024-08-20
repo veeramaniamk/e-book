@@ -1,7 +1,6 @@
-package com.saveetha.e_book.adminscreens.adminadapters;
+package com.saveetha.e_book.reviewerscrees.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,24 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.saveetha.e_book.R;
-import com.saveetha.e_book.adminscreens.AdminBookDetailsActivity;
-import com.saveetha.e_book.adminscreens.adminmodules.AdminBooksModule;
+import com.saveetha.e_book.reviewerscrees.modules.ReviewerBooksModule;
 
 import java.util.List;
 
-public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAdapter.MyViewHolder> {
+public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeBooksAdapter.MyViewHolder> {
 
-    List<AdminBooksModule> adminBooksModuleList;
+    List<ReviewerBooksModule> list;
     Context context;
 
-    public AdminHomeBooksAdapter(List<AdminBooksModule> adminBooksModuleList, Context context) {
-        this.adminBooksModuleList = adminBooksModuleList;
+    public ReviewerHomeBooksAdapter(List<ReviewerBooksModule> list, Context context) {
+        this.list = list;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public AdminHomeBooksAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReviewerHomeBooksAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.admin_new_books_layout, parent, false);
 
@@ -39,35 +37,37 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdminHomeBooksAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ReviewerHomeBooksAdapter.MyViewHolder holder, int position) {
 
-        AdminBooksModule adminBooksModule = adminBooksModuleList.get(position);
+        ReviewerBooksModule item = list.get(position);
 
         Glide.with(context)
-                .load(adminBooksModule.getCoverImage())
+                .load(item.getCoverImage())
                 .placeholder(R.drawable.book_icon)
                 .error(R.drawable.book_icon)
                 .into(holder.imageUrl);
 
-        holder.bookName.setText(adminBooksModule.getBookName());
-        holder.description.setText(adminBooksModule.getDescription());
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.bookName.setText(item.getBookName());
+        holder.description.setText(item.getDescription());
 
-                context.startActivity(new Intent(context, AdminBookDetailsActivity.class));
-
-            }
-        });
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                context.startActivity(new Intent(context, AdminBookDetailsActivity.class));
+//
+//            }
+//        });
 
     }
 
     @Override
     public int getItemCount() {
-        return adminBooksModuleList.size();
+        return list.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
         TextView bookName, description;
         ShapeableImageView imageUrl;
         CardView cardView;

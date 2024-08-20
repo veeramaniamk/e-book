@@ -15,15 +15,6 @@
         android:theme="@style/Theme.EBook"
         tools:targetApi="31">
         <activity
-            android:name=".ChangePasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BooksListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".userscreens.UserDashboardActivity"
-            android:exported="false"/>
-        <activity
             android:name=".reviewerscrees.ReviewerAddBookActivity"
             android:exported="false" />
         <activity
@@ -38,12 +29,8 @@
         <activity
             android:name=".adminscreens.AdminAuthorsActivity"
             android:exported="false" />
-
         <activity
-            android:name=".BooksListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".adminscreens.AdminBookDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".userscreens.BooksListActivity"
@@ -61,6 +48,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".openingscreens.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".openingscreens.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".reviewerscrees.ReviewerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userscreens.UserDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

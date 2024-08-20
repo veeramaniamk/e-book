@@ -8,10 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.saveetha.e_book.ChangePasswordActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.FragmentProfileBinding;
+import com.saveetha.e_book.userscreens.ChangePasswordActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -29,6 +28,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return binding.getRoot();
     }
 }

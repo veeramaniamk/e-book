@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.saveetha.e_book.R;
-import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
 import com.saveetha.e_book.databinding.ActivitySignInBinding;
 import com.saveetha.e_book.reviewerscrees.ReviewerDashboardActivity;
 
@@ -25,17 +23,15 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.signInBtn.setOnClickListener(v -> {
-            startActivity(new Intent(this, ReviewerDashboardActivity.class));
-            finish();
-            signin();
+            if(validateuser()) {
+                startActivity(new Intent(this, ReviewerDashboardActivity.class));
+                finish();
+            }
         });
 
         binding.registerTV.setOnClickListener(v -> {
             startActivity(new Intent(this, SignUpActivity.class));
         });
-
-
-
 
     }
 
@@ -43,6 +39,10 @@ public class SignInActivity extends AppCompatActivity {
         if(validateuser()){
 
         }
+    }
+
+    private void apiCall(String email, String password) {
+
     }
 
     private boolean validateuser() {
@@ -63,9 +63,6 @@ public class SignInActivity extends AppCompatActivity {
             binding.passwordET.setError("Password is required");
             isValid = false;
         }
-
-
-
         return isValid;
     }
 }

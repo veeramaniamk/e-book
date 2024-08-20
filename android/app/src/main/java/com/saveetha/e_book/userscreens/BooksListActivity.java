@@ -15,7 +15,5 @@ public class BooksListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBooksListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_books_list);
     }
 }
