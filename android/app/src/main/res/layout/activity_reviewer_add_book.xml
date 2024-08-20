@@ -144,6 +144,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:elevation="10dp"
                 android:hint="Year"/>
+
             <Spinner
                 android:id="@+id/CategoryET"
                 android:layout_width="match_parent"
@@ -155,6 +156,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:elevation="10dp"
                 android:hint="Category"/>
+
             <EditText
                 android:id="@+id/priceET"
                 android:layout_width="match_parent"

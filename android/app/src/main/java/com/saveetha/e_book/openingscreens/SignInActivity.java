@@ -26,7 +26,7 @@ public class SignInActivity extends AppCompatActivity {
 
         binding.signInBtn.setOnClickListener(v -> {
             if(validateuser()) {
-                startActivity(new Intent(this, AdminDashboardActivity.class));
+                startActivity(new Intent(this, ReviewerDashboardActivity.class));
                 finish();
             }
         });
