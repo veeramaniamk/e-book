@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public interface Constant {
-    String BASE_URL = "https://3a27-180-235-121-242.ngrok-free.app";
+    String BASE_URL = "https://3a27-180-235-121-242.ngrok-free.app/";
 
     String SIGN_IN_SF = "SF_SI";
     String NAME_SI_SF = "SF_NAME_SI";

@@ -95,7 +95,7 @@
                 android:padding="15dp" />
 
             <EditText
-                android:id="@+id/titleET"
+                    android:id="@+id/titleET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -103,6 +103,33 @@
                 android:background="@drawable/edit_text_bg"
                 android:elevation="10dp"
                 android:hint="Book Title"
+                android:padding="15dp" />
+            <EditText
+                android:id="@+id/descriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:ellipsize="end"
+                android:gravity="start|top"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:elevation="10dp"
+                android:hint="Description"
+                android:padding="15dp" />
+
+            <EditText
+                android:id="@+id/uploadDemoPDF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:drawableEnd="@drawable/pdfuplad_icon"
+                android:elevation="10dp"
+                android:focusable="false"
+                android:hint="Upload Demo PDF"
                 android:padding="15dp" />
 
             <EditText
@@ -115,7 +142,7 @@
                 android:drawableEnd="@drawable/pdfuplad_icon"
                 android:elevation="10dp"
                 android:focusable="false"
-                android:hint="upload PDF"
+                android:hint="Upload PDF"
                 android:padding="15dp" />
 
             <EditText
@@ -126,7 +153,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:elevation="10dp"
-                android:hint="Author"
+                android:hint="Author Name"
                 android:padding="15dp" />
 
             <EditText
@@ -152,14 +179,13 @@
                 android:padding="15dp" />
 
             <Spinner
-                android:id="@+id/CategoryET"
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
                 android:elevation="10dp"
-                android:hint="Category"
                 android:padding="15dp"
                 android:spinnerMode="dropdown" />
 
@@ -175,6 +201,7 @@
                 android:padding="15dp" />
 
             <Button
+                android:id="@+id/addBookBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
