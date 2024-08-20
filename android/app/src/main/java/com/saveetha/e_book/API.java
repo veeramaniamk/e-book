@@ -18,7 +18,6 @@ public interface API {
     @POST("/user/signin")
     Call<SignInResponse> signIn(@Body Signin request);
 
-
     @POST("/user/signup")
     Call<CommonResponse> signUp(@Body SignUpRequest request);
 
