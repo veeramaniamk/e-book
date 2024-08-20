@@ -3,6 +3,7 @@ package com.saveetha.e_book.reviewerscrees;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +33,7 @@ public class ReviewerHomeFragment extends Fragment {
     private String chipText;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         binding = FragmentReviewerHomeBinding.inflate(inflater, container, false);
@@ -58,10 +59,10 @@ public class ReviewerHomeFragment extends Fragment {
 
             if (checkedId != -1) {
                 Chip selectedChip = binding.chipGroup.findViewById(checkedId);
-                String selectedChipText = selectedChip.getText().toString();
-                Toast.makeText(context, "Selected Chip: " + selectedChipText, Toast.LENGTH_SHORT).show();
+                chipText = selectedChip.getText().toString();
+                Toast.makeText(context, "Selected Chip: " + chipText, Toast.LENGTH_SHORT).show();
             } else {
-
+                chipText = "ALL";
                 // No chip is selected
                 // but i checked All default
             }

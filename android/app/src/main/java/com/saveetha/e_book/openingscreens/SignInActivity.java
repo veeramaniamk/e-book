@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.saveetha.e_book.R;
-import com.saveetha.e_book.adminscreens.AdminDashboardActivity;
 import com.saveetha.e_book.databinding.ActivitySignInBinding;
 import com.saveetha.e_book.reviewerscrees.ReviewerDashboardActivity;
 

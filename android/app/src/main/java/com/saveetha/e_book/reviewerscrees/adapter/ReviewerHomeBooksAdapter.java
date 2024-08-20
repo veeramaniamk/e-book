@@ -1,7 +1,6 @@
 package com.saveetha.e_book.reviewerscrees.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.saveetha.e_book.R;
-import com.saveetha.e_book.adminscreens.AdminBookDetailsActivity;
-import com.saveetha.e_book.adminscreens.adminmodules.AdminBooksModule;
 import com.saveetha.e_book.reviewerscrees.modules.ReviewerBooksModule;
 
 import java.util.List;
@@ -51,7 +48,7 @@ public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeB
                 .into(holder.imageUrl);
 
         holder.bookName.setText(item.getBookName());
-        holder.descrption.setText(item.getDescription());
+        holder.description.setText(item.getDescription());
 
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -71,7 +68,7 @@ public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeB
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView bookName, descrption;
+        TextView bookName, description;
         ShapeableImageView imageUrl;
         CardView cardView;
 
@@ -79,7 +76,7 @@ public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeB
             super(itemView);
             imageUrl = itemView.findViewById(R.id.imageBook);
             bookName = itemView.findViewById(R.id.title);
-            descrption = itemView.findViewById(R.id.descriptionText);
+            description = itemView.findViewById(R.id.descriptionText);
             cardView = itemView.findViewById(R.id.cardView);
         }
     }
