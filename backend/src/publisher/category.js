@@ -4,7 +4,7 @@ const mysql = require("../database/connection");
 var fileName="";
 const storage = multer.diskStorage({
 
-  destination: (req, file, cb) => { cb(null, 'C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\category_images\\'); },
+  destination: (req, file, cb) => { cb(null, 'C:\\VEERAMANI\\book\\e-book\\backend\\src\\uploads\\category_image\\'); },
 
   filename: (req, file, cb) => {
 

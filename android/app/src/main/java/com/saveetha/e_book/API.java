@@ -1,5 +1,6 @@
 package com.saveetha.e_book;
 
+import com.saveetha.e_book.request.ApproveBookRequest;
 import com.saveetha.e_book.request.SignUpRequest;
 import com.saveetha.e_book.request.Signin;
 import com.saveetha.e_book.response.CommonResponse;
@@ -77,5 +78,5 @@ public interface API {
     @POST("/admin/get_publisher")
     Call<GetPublisherResponse> getPublisher();
 
-
+   
 }
