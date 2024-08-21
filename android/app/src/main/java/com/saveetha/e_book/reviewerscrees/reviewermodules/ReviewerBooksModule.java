@@ -1,4 +1,4 @@
-package com.saveetha.e_book.reviewerscrees.modules;
+package com.saveetha.e_book.reviewerscrees.reviewermodules;
 
 public class ReviewerBooksModule {
 

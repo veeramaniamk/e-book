@@ -5,7 +5,7 @@ public class SignInData {
     private String name;
     private long phone;
     private String email;
-    private int userType;
+    private int user_type;
     private String gender;
     private String profile;
 
@@ -26,7 +26,7 @@ public class SignInData {
     }
 
     public int getUserType() {
-        return userType;
+        return user_type;
     }
 
     public String getGender() {
