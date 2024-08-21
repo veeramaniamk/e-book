@@ -31,7 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SharedPreferences sf = SF.getSignInSF(SplashScreenActivity.this);
-                if (sf.getString(Constant.SIGN_IN_SF, null) != null) {
+                if (sf.getString(Constant.NAME_SI_SF, null) != null) {
                     if (sf.getInt(Constant.USER_TYPE_SI_SF, 0) == 111) {
                         startActivity(new Intent(SplashScreenActivity.this, AdminDashboardActivity.class));
                     } else if (sf.getInt(Constant.USER_TYPE_SI_SF, 0) == 110) {

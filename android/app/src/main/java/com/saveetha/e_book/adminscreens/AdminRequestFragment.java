@@ -30,7 +30,7 @@ public class AdminRequestFragment extends Fragment {
 
         try {
             activity = getActivity();
-            context = getContext();
+            context  = getContext();
         } catch (Exception e) {
             e.printStackTrace();
         }

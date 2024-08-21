@@ -1,6 +1,7 @@
 package com.saveetha.e_book.adminscreens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -152,6 +154,13 @@ private void apiCall() {
                     .placeholder(R.drawable.book_icon)
                     .error(R.drawable.book_icon)
                     .into(holder.authorImage);
+            holder.cv.setOnClickListener(v -> {
+                Intent intent = new Intent(context,AdminPublisherProfileActivity.class);
+                intent.putExtra("publisherId", author.getPublisherId());
+                intent.putExtra("publisherProfile",author.getPublisherProfile());
+                intent.putExtra("publisherName",author.getPublisherName());
+                context.startActivity(intent);
+            });
 
         }
 
@@ -164,10 +173,11 @@ private void apiCall() {
 
             TextView authorName, authorEmail, authorPhone;
             ImageView authorImage;
+            CardView cv;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-
+                cv = itemView.findViewById(R.id.card);
                 authorName = itemView.findViewById(R.id.nameTV);
                 authorEmail = itemView.findViewById(R.id.emailTV);
                 authorPhone = itemView.findViewById(R.id.phoneTV);
