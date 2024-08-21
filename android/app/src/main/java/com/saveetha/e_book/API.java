@@ -5,7 +5,10 @@ import com.saveetha.e_book.request.Signin;
 import com.saveetha.e_book.response.CommonResponse;
 import com.saveetha.e_book.response.GetCategoryResponse;
 import com.saveetha.e_book.response.SignInResponse;
+import com.saveetha.e_book.response.admin.GetAllReviewResponse;
 import com.saveetha.e_book.response.admin.GetBooksResponse;
+import com.saveetha.e_book.response.admin.GetPublisherResponse;
+import com.saveetha.e_book.response.admin.GetPurchesedBooksResponse;
 import com.saveetha.e_book.response.admin.GetSingleBookResponse;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.AddBook;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.RequestGetBook;
@@ -58,5 +61,21 @@ public interface API {
 
     @POST("/publisher/get_book")
     Call<GetBooksResponse> getReviewerBooks(@Body RequestGetBook request);
+
+    @POST("/admin/approve_book")
+    Call<CommonResponse> approveBook(@Body ApproveBookRequest request);
+
+    @POST("/admin/cancel_book")
+    Call<CommonResponse> rejectBook(@Body ApproveBookRequest.RejectBookRequest request);
+
+    @POST("/admin/get_all_review")
+    Call<GetAllReviewResponse> getAllReview();
+
+    @POST("/admin/get_all_purchesed_books")
+    Call<GetPurchesedBooksResponse> getPurchasedBooks();
+
+    @POST("/admin/get_publisher")
+    Call<GetPublisherResponse> getPublisher();
+
 
 }
