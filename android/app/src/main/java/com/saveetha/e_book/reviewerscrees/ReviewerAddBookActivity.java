@@ -317,6 +317,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
         } else {
+            permissionCheck();
             Toast.makeText(this, "Permission Denied! Give permission to continue", Toast.LENGTH_SHORT).show();
         }
     }

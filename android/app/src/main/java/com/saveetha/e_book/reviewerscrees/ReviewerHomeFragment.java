@@ -1,5 +1,6 @@
 package com.saveetha.e_book.reviewerscrees;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Context;
 
@@ -12,14 +13,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
+import com.saveetha.e_book.Constant;
+import com.saveetha.e_book.RestClient;
 import com.saveetha.e_book.databinding.FragmentReviewerHomeBinding;
+import com.saveetha.e_book.response.GetCategoryResponse;
+import com.saveetha.e_book.response.admin.GetBooksData;
+import com.saveetha.e_book.response.admin.GetBooksResponse;
 import com.saveetha.e_book.reviewerscrees.revieweradapter.ReviewerHomeBooksAdapter;
+import com.saveetha.e_book.reviewerscrees.reviewerapi.request.RequestGetBook;
 import com.saveetha.e_book.reviewerscrees.reviewermodules.ReviewerBooksModule;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ReviewerHomeFragment extends Fragment {
@@ -29,6 +42,9 @@ public class ReviewerHomeFragment extends Fragment {
     FragmentActivity activity;
     Context context;
     private String chipText;
+    ReviewerHomeBooksAdapter adapter;
+    String publisherName;
+    int publisherId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -36,18 +52,58 @@ public class ReviewerHomeFragment extends Fragment {
 
         binding = FragmentReviewerHomeBinding.inflate(inflater, container, false);
 
+
         try {
             activity = getActivity();
             context = getContext();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(Constant.SIGN_IN_SF, Context.MODE_PRIVATE);
+        publisherId = sharedPreferences.getInt(Constant.ID_SI_SF, 0);
+        publisherName = sharedPreferences.getString(Constant.NAME_SI_SF, "");
+
 
         onChipListener();
 
         loadReviewerHome();
 
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                filter(newText);
+                return false;
+            }
+        });
+
         return binding.getRoot();
+
+
+    }
+
+    private void filter(String newText) {
+        ArrayList<ReviewerBooksModule> filteredlist = new ArrayList<>();
+
+        for (ReviewerBooksModule item : list) {
+            if (item.getBookName().toLowerCase().contains(newText.toLowerCase())) {
+                filteredlist.add(item);
+            }
+        }
+
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.filterList(filteredlist);
+        }
 
     }
 
@@ -75,15 +131,42 @@ public class ReviewerHomeFragment extends Fragment {
 
         list = new ArrayList<>();
 
-        list.add(new ReviewerBooksModule("Anesthesia","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        list.add(new ReviewerBooksModule("pharmacist","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        list.add(new ReviewerBooksModule("Pharmaceutics","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
-        list.add(new ReviewerBooksModule("Anesthesia","https://imgs.search.brave.com/C9Ux4Cy7nVBYvAG10ljDU-DRtkCdEJP-peea-8KXB3g/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlkL2Rh/L2M3LzlkZGFjNzRl/MDhkMTU1MWYwNTNi/ZDBjNzI1YjQwNzFj/LmpwZw","This text serves as a placeholder, offering a glimpse of content in design layouts. It helps visualize the arrangement and appearance of text elements within a project. While the words may be generic, the structure and format reflect how actual content will look. Use this sample to fine-tune spacing, alignment, and overall visual impact before finalizing the real text."));
+        RequestGetBook requestGetBook = new RequestGetBook();
+        requestGetBook.setPublisher_id(publisherId);
 
-        ReviewerHomeBooksAdapter adapter = new ReviewerHomeBooksAdapter(list,context);
 
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        binding.recyclerView.setAdapter(adapter);
+        Call<GetBooksResponse> call = RestClient.makeAPI().getReviewerBooks(requestGetBook);
+
+        call.enqueue(new Callback<GetBooksResponse>() {
+            @Override
+            public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "" + response.body().getStatus(), Toast.LENGTH_SHORT).show();
+                    if (response.body().getStatus() == 200) {
+                        try {
+                            for (GetBooksData r : response.body().getData()) {
+                                list.add(new ReviewerBooksModule(r.getBook_title(), r.getBook_cover_image(), r.getBook_description()));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                        adapter = new ReviewerHomeBooksAdapter(list, context);
+                        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                        binding.recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetBooksResponse> call, Throwable t) {
+
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 }

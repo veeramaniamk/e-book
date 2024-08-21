@@ -10,9 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
 
     public static Retrofit getInstance() {
-        HttpLoggingInterceptor interceptor=new HttpLoggingInterceptor();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client=new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         return new Retrofit.Builder().baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client).build();

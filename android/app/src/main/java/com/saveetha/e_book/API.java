@@ -8,6 +8,7 @@ import com.saveetha.e_book.response.SignInResponse;
 import com.saveetha.e_book.response.admin.GetBooksResponse;
 import com.saveetha.e_book.response.admin.GetSingleBookResponse;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.AddBook;
+import com.saveetha.e_book.reviewerscrees.reviewerapi.request.RequestGetBook;
 
 import java.io.File;
 
@@ -16,6 +17,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -48,7 +50,13 @@ public interface API {
     @POST("/publisher/get_category")
     Call<GetCategoryResponse> getAllCategory();
 
+    @Multipart
+    @POST("/publisher/add_category")
+    Call<CommonResponse> addCategory(@Part("category_name") RequestBody category_name, @Part MultipartBody.Part category_image);
 
 
+
+    @POST("/publisher/get_book")
+    Call<GetBooksResponse> getReviewerBooks(@Body RequestGetBook request);
 
 }

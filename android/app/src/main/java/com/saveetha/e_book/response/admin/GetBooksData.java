@@ -1,6 +1,8 @@
 package com.saveetha.e_book.response.admin;
 
 public class GetBooksData {
+
+
     private int book_id;
     private int publisher_id;
     private String publisher_name;
@@ -8,16 +10,25 @@ public class GetBooksData {
     private String auther_name;
     private String year_of_the_book;
     private String book_submit_date;
-
-    public String getBook_description() {
-        return book_description;
-    }
-
     private String book_description;
     private String book_approval_status;
     private String book_approval_date;
     private String book_cancelled_msg;
     private String book_title;
+    private String book_pdf;
+    private String demo_book;
+
+    public String getBook_pdf() {
+        return book_pdf;
+    }
+
+    public String getDemo_book() {
+        return demo_book;
+    }
+
+    public String getBook_description() {
+        return book_description;
+    }
 
     public String getBook_title() {
         return book_title;
