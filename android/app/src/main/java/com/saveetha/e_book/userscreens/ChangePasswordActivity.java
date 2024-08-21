@@ -4,10 +4,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.ActivityChangePasswordBinding;
 
-public class AdminBookDetailsActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends AppCompatActivity {
 
     ActivityChangePasswordBinding binding;
     @Override

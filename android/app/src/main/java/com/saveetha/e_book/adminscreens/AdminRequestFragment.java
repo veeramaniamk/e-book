@@ -37,24 +37,20 @@ public class AdminRequestFragment extends Fragment {
 
         onClickAction();
 
-
-
         return binding.getRoot();
     }
 
     private void onClickAction() {
 
-        binding.card1.setOnClickListener(v -> {
+        binding.reviews.setOnClickListener(v -> {
             startActivity(new Intent(context,AdminReviewedActivity.class));
         });
 
-        binding.card2.setOnClickListener(v -> {
+        binding.purchasedList.setOnClickListener(v -> {
             startActivity(new Intent(context,AdminPurchasedActivity.class));
         });
 
-        binding.card3.setOnClickListener(v -> {
-            startActivity(new Intent(context,AdminAuthorsActivity.class));
-        });
+        binding.authorsList.setOnClickListener(v -> startActivity(new Intent(context,AdminAuthorsActivity.class)));
 
     }
 }

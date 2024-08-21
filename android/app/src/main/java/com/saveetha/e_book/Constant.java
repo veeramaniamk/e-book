@@ -15,16 +15,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public interface Constant {
-    String BASE_URL = "https://f790-2409-4072-6e32-5128-d1e6-4db4-b7a6-905a.ngrok-free.app";
+  
+    String BASE_URL = "https://1fc6-180-235-121-242.ngrok-free.app";
 
-    String SIGN_IN_SF = "SF_SI";
-    String NAME_SI_SF = "SF_NAME_SI";
-    String ID_SI_SF = "SF_ID_SI";
-    String EMAIL_SI_SF = "SF_EMAIL_SI";
-    String PHONE_SI_SF = "SF_PHONE_SI";
-    String USER_TYPE_SI_SF = "SF_USER_TYPE_SI";
-    String GENDER_SI_SF = "SF_GENDER_SI";
-    String PROFILE_SI_SF = "SF_PROFILE_SI";
+    String SIGN_IN_SF       = "SF_SI";
+    String NAME_SI_SF       = "SF_NAME_SI";
+    String ID_SI_SF         = "SF_ID_SI";
+    String EMAIL_SI_SF      = "SF_EMAIL_SI";
+    String PHONE_SI_SF      = "SF_PHONE_SI";
+    String USER_TYPE_SI_SF  = "SF_USER_TYPE_SI";
+    String GENDER_SI_SF     = "SF_GENDER_SI";
+    String PROFILE_SI_SF    = "SF_PROFILE_SI";
 
 }
 
@@ -42,7 +43,7 @@ class a {
                         Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(context, ""+response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 

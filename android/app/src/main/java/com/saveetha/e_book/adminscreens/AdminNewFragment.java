@@ -39,7 +39,6 @@ public class AdminNewFragment extends Fragment {
     FragmentActivity activity;
     Context context;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,7 +80,7 @@ public class AdminNewFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(context, ""+response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
