@@ -48,7 +48,7 @@ public class AdminHomeBooksAdapter extends RecyclerView.Adapter<AdminHomeBooksAd
                 .placeholder(R.drawable.book_icon)
                 .error(R.drawable.book_icon)
                 .into(holder.imageUrl);
-        Toast.makeText(context, ""+adminBooksModule.getBookId(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, ""+adminBooksModule.getBookId(), Toast.LENGTH_SHORT).show();
         holder.bookName.setText(adminBooksModule.getBookName());
         holder.description.setText(adminBooksModule.getDescription());
         holder.cardView.setOnClickListener(new View.OnClickListener() {

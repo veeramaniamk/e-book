@@ -12,7 +12,7 @@ public class AdminBooksModule {
         return bookId;
     }
     public AdminBooksModule(int bookId,String bookName, String coverImage, String description,String status) {
-        this.bookId= bookId;
+        this.bookId = bookId;
         this.bookName = bookName;
         this.coverImage = coverImage;
         this.description = description;
