@@ -21,7 +21,7 @@ const addCategory = (req, res) => {
 
     upload.single("category_image")(req, res, (err) => {
 
-        if(err) {console.log("error "+err.message); return res.status(400).send({ status:400, message: 'image data missing'})}
+        if(err) {console.log("error "+err.message); return res.status(200).send({ status:400, message: 'image data missing'})}
 
         const category_name = req.body.category_name;
         

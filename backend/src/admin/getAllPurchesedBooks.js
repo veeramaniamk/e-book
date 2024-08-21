@@ -9,7 +9,7 @@ const getAllPurchesedBooks = (req, res) => {
 
     let query = `select pb.id , pb.date as purchased_book_date, pb.transaction_id as purchased_book_transaction_id, 
     user_id, book_id, pb.publisher_id, pb.price as user_payed_amount, eb.publisher_name as eb_publisher_name, 
-    book_titile, book_cover_image, book_pdf, demo_file, category_name, auther_name, year_of_the_book, eb.price as book_price,
+    book_titile, book_cover_image, book_pdf, demo_file, category_name, auther_name, year_of_the_book,eb.book_description, eb.price as book_price,
      eb.book_submit_date, su.name as user_name, su.phone as user_phone, su.user_type, email, 
      profile_photo from purchased_books pb inner join e_books eb on pb.book_id = eb.id inner join signup su on su.id = pb.user_id`;
     
@@ -35,6 +35,7 @@ const getAllPurchesedBooks = (req, res) => {
            obj.book_id                  = element.book_id;
            obj.publisher_id             = element.publisher_id;
            obj.user_payed_amount        = element.user_payed_amount;
+           obj.book_description         = element.book_description;
            obj.book_publisher_name      = element.eb_publisher_name
            obj.book_titile              = element.book_titile;
            obj.book_cover_image         = SITE_COVER_IMAGE_URL + element.book_cover_image;
