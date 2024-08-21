@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.saveetha.e_book.databinding.FragmentReviewerHomeBinding;
-import com.saveetha.e_book.reviewerscrees.adapter.ReviewerHomeBooksAdapter;
-import com.saveetha.e_book.reviewerscrees.modules.ReviewerBooksModule;
+import com.saveetha.e_book.reviewerscrees.revieweradapter.ReviewerHomeBooksAdapter;
+import com.saveetha.e_book.reviewerscrees.reviewermodules.ReviewerBooksModule;
 
 import java.util.ArrayList;
 

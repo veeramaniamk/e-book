@@ -1,4 +1,4 @@
-package com.saveetha.e_book.reviewerscrees.adapter;
+package com.saveetha.e_book.reviewerscrees.revieweradapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.saveetha.e_book.R;
-import com.saveetha.e_book.reviewerscrees.modules.ReviewerBooksModule;
+import com.saveetha.e_book.reviewerscrees.reviewermodules.ReviewerBooksModule;
 
 import java.util.List;
 

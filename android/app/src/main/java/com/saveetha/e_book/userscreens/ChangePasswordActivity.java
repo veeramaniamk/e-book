@@ -16,4 +16,4 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
     }
-}
+ }

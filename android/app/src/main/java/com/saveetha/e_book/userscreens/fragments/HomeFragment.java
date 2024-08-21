@@ -33,11 +33,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        CategoryListAdapter adapter = new CategoryListAdapter(this, categories);
+//        CategoryListAdapter revieweradapter = new CategoryListAdapter(this, categories);
 //
 //        GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL,false);
 //        binding.categoryRV.setLayoutManager(gridLayoutManager);
-//        binding.categoryRV.setAdapter(adapter);
+//        binding.categoryRV.setAdapter(revieweradapter);
 
         return binding.getRoot();
     }

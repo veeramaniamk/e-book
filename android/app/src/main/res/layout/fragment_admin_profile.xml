@@ -6,6 +6,7 @@
     tools:context=".adminscreens.AdminProfileFragment">
 
     <TextView
+        android:id="@+id/logoutIV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile Fragment"
