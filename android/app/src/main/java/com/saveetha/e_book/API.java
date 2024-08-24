@@ -41,7 +41,6 @@ public interface API {
     @POST("/user/signup")
     Call<CommonResponse> signUp(@Body SignUpRequest request);
 
-
     @POST("/admin/get_books")
     Call<GetBooksResponse> getBooksAdminHomePage(@Query("book_approval") String book_approval);
 
@@ -68,7 +67,10 @@ public interface API {
 
     @Multipart
     @POST("/publisher/add_books")
-    Call<CommonResponse> addBook(@Part("publisher_id") RequestBody publisher_id, @Part("publisher_name") RequestBody publisher_name, @Part("book_titile") RequestBody book_titile, @Part("book_description") RequestBody book_description, @Part("auther_name") RequestBody auther_name, @Part("year_of_the_book") RequestBody year_of_the_book, @Part("category_name") RequestBody category_name, @Part("book_price") RequestBody book_price, @Part MultipartBody.Part cover_image, @Part MultipartBody.Part book, @Part MultipartBody.Part demo_file);
+    Call<CommonResponse> addBook(@Part("publisher_id") RequestBody publisher_id,
+                                 @Part("publisher_name") RequestBody publisher_name, @Part("book_titile") RequestBody book_titile, @Part("book_description") RequestBody book_description, @Part("auther_name") RequestBody auther_name,
+                                 @Part("year_of_the_book") RequestBody year_of_the_book, @Part("category_name") RequestBody category_name, @Part("book_price") RequestBody book_price,
+                                 @Part MultipartBody.Part cover_image, @Part MultipartBody.Part book, @Part MultipartBody.Part demo_file);
 
 
     @POST("/publisher/get_category")
@@ -89,6 +91,13 @@ public interface API {
 
     @POST("user/update_user_info")
     Call<CommonResponse> updateUserInfo(@Body Request.UpdateProfile request);
+
+    @POST("user/change_password")
+    Call<CommonResponse> changePassword(@Body Request.ChangePassword request);
+
+    @Multipart
+    @POST("user/update_profile_image")
+    Call<CommonResponse> updateUserProfile(@Part("user_id") String userId, @Part MultipartBody.Part profile);
 
     @POST("/user/get_book_review")
     Call<ReviewResponse> getBookReview(@Query("book_id") int book_id);
