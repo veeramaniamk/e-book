@@ -80,19 +80,17 @@ public interface API {
     @POST("/publisher/add_category")
     Call<CommonResponse> addCategory(@Part("category_name") RequestBody category_name, @Part MultipartBody.Part category_image);
 
-
-
     @POST("/publisher/get_book")
     Call<GetBooksResponse> getReviewerBooks(@Body RequestGetBook request);
-
-
-
 
     @POST("/publisher/get_category")
     Call<GetCategoryResponse> getCategories();
 
     @POST("/user/get_books")
     Call<GetBooksResponse> getByCategories(@Query("category_name") String category_name);
+
+    @POST("user/update_user_info")
+    Call<CommonResponse> updateUserInfo(@Body Request.UpdateProfile request);
 
 
 
