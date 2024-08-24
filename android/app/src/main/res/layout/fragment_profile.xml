@@ -148,33 +148,20 @@
         app:layout_constraintTop_toBottomOf="@+id/emailET" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:layout_marginTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/genderS">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/updateProfileBTN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/border_10dp_bg_stroke"
-            android:backgroundTint="@color/blue"
-            android:layout_marginHorizontal="20dp"
-            android:text="Update"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/changePasswordBTN"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/border_10dp_bg_stroke"
             android:backgroundTint="@color/blue"
-            android:layout_marginHorizontal="20dp"
             android:text="Change Password"
             android:textAllCaps="false"
             android:textColor="@color/white" />
