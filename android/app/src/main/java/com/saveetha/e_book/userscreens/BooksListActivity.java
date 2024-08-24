@@ -52,7 +52,7 @@ public class BooksListActivity extends AppCompatActivity {
 
         books = new ArrayList<>();
 
-        Call<GetBooksResponse> responseCall = RestClient.makeAPI().getByCategories(categoryType);
+        Call<GetBooksResponse> responseCall = RestClient.makeAPI().getBooksByCategories(categoryType);
         responseCall.enqueue(new Callback<GetBooksResponse>() {
             @Override
             public void onResponse(@NonNull Call<GetBooksResponse> call, @NonNull Response<GetBooksResponse> response) {

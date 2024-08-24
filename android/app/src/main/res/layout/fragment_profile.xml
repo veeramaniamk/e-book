@@ -35,6 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardlogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -50,18 +51,18 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:src="@drawable/logout_icon" />
-
+            android:src="@drawable/logout" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardedit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/bookCategoryTV"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardlogout"
         app:layout_constraintTop_toTopOf="@+id/bookCategoryTV">
 
         <ImageView
@@ -69,7 +70,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:src="@drawable/logout_icon" />
+            android:src="@drawable/edit_icon" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

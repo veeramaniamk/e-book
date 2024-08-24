@@ -1,12 +1,9 @@
 package com.saveetha.e_book;
 
 import android.os.Bundle;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.saveetha.e_book.databinding.ActivityAddReviewBinding;
 
@@ -19,5 +16,22 @@ public class AddReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddReviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        onClick();
+
+    }
+
+    private void onClick() {
+        binding.addReviewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //TODO
+                // add review
+                // show Dialog Box To Add Review
+                // dialog Box @layout Name : add_review_layout.xml
+
+            }
+        });
     }
 }
