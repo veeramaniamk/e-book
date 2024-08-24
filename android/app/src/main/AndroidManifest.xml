@@ -25,6 +25,12 @@
         android:theme="@style/Theme.EBook"
         tools:targetApi="31">
         <activity
+            android:name=".AddReviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userscreens.BookDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".adminscreens.AdminPublisherProfileActivity"
             android:exported="false" />
         <activity
@@ -50,7 +56,8 @@
             android:exported="false" />
         <activity
             android:name=".adminscreens.AdminDashboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".openingscreens.SplashScreenActivity"
             android:exported="true"
@@ -69,10 +76,12 @@
             android:exported="false" />
         <activity
             android:name=".reviewerscrees.ReviewerDashboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".userscreens.UserDashboardActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

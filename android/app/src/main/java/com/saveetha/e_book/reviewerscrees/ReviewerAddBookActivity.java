@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
     private String uploadImageET, titleET, uploadPDFET, authorET, publisherET, yearET, category, priceET;
     private String publisher_name, description;
     private int publisher_id;
+    String str[];
 
     private RequestBody publisher_id_req, title_req, upload_pdf_req, author_req, publisher_name_req, year_req, category_req, price_req, description_req;
     private MultipartBody.Part image_req, pdf_req, demo_req;
@@ -63,7 +65,14 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
         publisher_name = sf.getString(Constant.NAME_SI_SF, null);
         permissionCheck();
         onClick();
-        loadSpinner();
+
+        try{
+
+            loadSpinner();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -74,32 +83,40 @@ public class ReviewerAddBookActivity extends AppCompatActivity {
     }
 
     private void loadSpinner() {
-        Call<GetCategoryResponse> res = RestClient.makeAPI().getAllCategory();
 
-        res.enqueue(new Callback<GetCategoryResponse>() {
-            @Override
-            public void onResponse(Call<GetCategoryResponse> call, Response<GetCategoryResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body().getStatus().equals("200")) {
-                        for (int i = 0; i < response.body().getData().size(); i++) {
-                            GetCategoryResponse.data item = response.body().getData().get(i);
-                            String str[] = new String[response.body().getData().size()];
-                            str[i] = item.getCategory_name();
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(ReviewerAddBookActivity.this, android.R.layout.simple_spinner_dropdown_item, str);
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            binding.category.setAdapter(adapter);
+            Call<GetCategoryResponse> res = RestClient.makeAPI().getAllCategory();
+
+            res.enqueue(new Callback<GetCategoryResponse>() {
+                @Override
+                public void onResponse(Call<GetCategoryResponse> call, Response<GetCategoryResponse> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body().getStatus().equals("200")) {
+
+                            try {
+                                str = new String[response.body().getData().size()];
+                                for (int i = 0; i < response.body().getData().size(); i++) {
+                                    GetCategoryResponse.data item = response.body().getData().get(i);
+                                    str[i] = item.getCategory_name();
+                                }
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(ReviewerAddBookActivity.this, android.R.layout.simple_spinner_item, str);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                binding.category.setAdapter(adapter);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         }
                     }
+
                 }
 
-            }
+                @Override
+                public void onFailure(Call<GetCategoryResponse> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<GetCategoryResponse> call, Throwable t) {
+                    Toast.makeText(ReviewerAddBookActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                Toast.makeText(ReviewerAddBookActivity.this, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void onClick() {

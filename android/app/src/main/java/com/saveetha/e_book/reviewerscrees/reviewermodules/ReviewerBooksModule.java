@@ -5,11 +5,22 @@ public class ReviewerBooksModule {
     private final String bookName;
     private final String coverImage;
     private final String description;
+    private final int bookId;
+    private final String status;
 
-    public ReviewerBooksModule(String bookName, String coverImage, String description) {
+    public ReviewerBooksModule(int bookId, String bookName, String coverImage, String description,String status) {
+        this.bookId = bookId;
         this.bookName = bookName;
         this.coverImage = coverImage;
         this.description = description;
+        this.status=status;
+    }
+    public String getStatus() {
+        return status;
+
+    }
+    public int getBookId() {
+        return bookId;
     }
 
 

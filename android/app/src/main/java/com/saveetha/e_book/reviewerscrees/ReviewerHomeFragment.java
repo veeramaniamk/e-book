@@ -29,6 +29,7 @@ import com.saveetha.e_book.reviewerscrees.reviewermodules.ReviewerBooksModule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,6 +91,38 @@ public class ReviewerHomeFragment extends Fragment {
 
     }
 
+    private void chipFilter(String status) {
+        ArrayList<ReviewerBooksModule> filteredlist = new ArrayList<>();
+        if(Objects.equals(status, "ALL")){
+            for (ReviewerBooksModule item : list) {
+                  filteredlist.add(item);
+
+            }
+        } else {
+
+
+            for (ReviewerBooksModule item : list) {
+                if (item.getStatus().toLowerCase().contains(status.toLowerCase())) {
+                    filteredlist.add(item);
+                }
+            }
+
+        }
+
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show();
+            try {
+                ArrayList<ReviewerBooksModule> list1 = new ArrayList<>();
+                adapter.filterList(list1);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        } else {
+            adapter.filterList(filteredlist);
+        }
+
+    }
+
     private void filter(String newText) {
         ArrayList<ReviewerBooksModule> filteredlist = new ArrayList<>();
 
@@ -101,6 +134,13 @@ public class ReviewerHomeFragment extends Fragment {
 
         if (filteredlist.isEmpty()) {
             Toast.makeText(context, "No Data Found..", Toast.LENGTH_SHORT).show();
+            try {
+                ArrayList<ReviewerBooksModule> list1 = new ArrayList<>();
+                adapter.filterList(list1);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         } else {
             adapter.filterList(filteredlist);
         }
@@ -114,11 +154,11 @@ public class ReviewerHomeFragment extends Fragment {
             if (checkedId != -1) {
                 Chip selectedChip = binding.chipGroup.findViewById(checkedId);
                 chipText = selectedChip.getText().toString();
+                chipFilter(chipText);
                 Toast.makeText(context, "Selected Chip: " + chipText, Toast.LENGTH_SHORT).show();
             } else {
                 chipText = "ALL";
-                // No chip is selected
-                // but i checked All default
+
             }
 
 
@@ -145,7 +185,7 @@ public class ReviewerHomeFragment extends Fragment {
                     if (response.body().getStatus() == 200) {
                         try {
                             for (GetBooksData r : response.body().getData()) {
-                                list.add(new ReviewerBooksModule(r.getBook_title(), r.getBook_cover_image(), r.getBook_description()));
+                                list.add(new ReviewerBooksModule(r.getBook_id(),r.getBook_title(), r.getBook_cover_image(), r.getBook_description(),r.getBook_approval_status()));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

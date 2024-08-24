@@ -1,6 +1,7 @@
 package com.saveetha.e_book.reviewerscrees.revieweradapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.saveetha.e_book.R;
+import com.saveetha.e_book.adminscreens.AdminBookDetailsActivity;
 import com.saveetha.e_book.reviewerscrees.reviewermodules.ReviewerBooksModule;
 
 import java.util.ArrayList;
@@ -37,13 +39,10 @@ public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeB
         return new MyViewHolder(view);
     }
 
+
     // method for filtering our recyclerview items.
     public void filterList(ArrayList<ReviewerBooksModule> filterlist) {
-        // below line is to add our filtered
-        // list in our course array list.
         list = filterlist;
-        // below line is to notify our adapter
-        // as change in recycler view data.
         notifyDataSetChanged();
     }
 
@@ -60,6 +59,13 @@ public class ReviewerHomeBooksAdapter extends RecyclerView.Adapter<ReviewerHomeB
 
         holder.bookName.setText(item.getBookName());
         holder.description.setText(item.getDescription());
+
+        holder.cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AdminBookDetailsActivity.class);
+            intent.putExtra("bookId", item.getBookId());
+            intent.putExtra("status",item.getStatus());
+            context.startActivity(intent);
+        });
 
 
 

@@ -1,5 +1,6 @@
 package com.saveetha.e_book.userscreens.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.FragmentLibraryBinding;
+import com.saveetha.e_book.userscreens.BooksListActivity;
 
 public class LibraryFragment extends Fragment {
 
@@ -19,21 +21,21 @@ public class LibraryFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentLibraryBinding.inflate(getLayoutInflater());
 
-//        binding.savedTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent = new Intent(requireContext(), BooksListActivity.class);
-////                startActivity(intent);
-//            }
-//        });
+        binding.savedTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+                startActivity(intent);
+            }
+        });
 
-//        binding.finishedTV.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent = new Intent(requireContext(), BooksListActivity.class);
-////                startActivity(intent);
-//            }
-//        });
+        binding.finishedTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return binding.getRoot();
     }

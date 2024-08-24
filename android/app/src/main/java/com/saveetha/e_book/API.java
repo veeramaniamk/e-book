@@ -87,4 +87,13 @@ public interface API {
 
 
 
+
+    @POST("/publisher/get_category")
+    Call<GetCategoryResponse> getCategories();
+
+    @POST("/user/get_books")
+    Call<GetBooksResponse> getByCategories(@Query("category_name") String category_name);
+
+
+
 }
