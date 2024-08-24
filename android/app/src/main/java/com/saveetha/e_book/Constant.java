@@ -15,7 +15,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public interface Constant {
-    String BASE_URL = "https://dde7-157-46-83-239.ngrok-free.app";
+    String BASE_URL = "https://9a32-2409-4072-31e-70b8-d893-3346-965e-cd40.ngrok-free.app";
+
+    String[] GENDER = {"MALE", "FEMALE"};
 
     String SIGN_IN_SF       = "SF_SI";
     String NAME_SI_SF       = "SF_NAME_SI";
@@ -26,10 +28,7 @@ public interface Constant {
     String GENDER_SI_SF     = "SF_GENDER_SI";
     String PROFILE_SI_SF    = "SF_PROFILE_SI";
 
-}
-
-class a {
-    private void apiCall() {
+    default void apiCall() {
         final Context context = null;
         Call<SignInResponse> responseCall = RestClient.makeAPI().signIn(new Signin());
         responseCall.enqueue(new Callback<SignInResponse>() {

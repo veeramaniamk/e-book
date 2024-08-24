@@ -10,4 +10,20 @@ public class Request {
         }
     }
 
+    public static class UpdateProfile {
+        private String name;
+        private String phone;
+        private String email;
+        private String gender;
+        private String user_id;
+
+        public UpdateProfile(String name, String phone, String email, String gender, String user_id) {
+            this.name = name;
+            this.phone = phone;
+            this.email = email;
+            this.gender = gender;
+            this.user_id = user_id;
+        }
+    }
+
 }
