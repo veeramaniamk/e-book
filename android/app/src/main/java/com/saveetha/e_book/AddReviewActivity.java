@@ -29,6 +29,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 //TODO
                 // add review
                 // show Dialog Box To Add Review
+                // dialog Box @layout Name : add_review_layout.xml
 
             }
         });
