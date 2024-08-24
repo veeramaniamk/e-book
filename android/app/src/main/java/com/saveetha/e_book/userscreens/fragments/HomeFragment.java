@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.saveetha.e_book.RestClient;
@@ -60,8 +61,36 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
+        onClick();
+
         loadHome();
         return binding.getRoot();
+    }
+
+    private void onClick() {
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterRcyc(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterRcyc(newText);
+                return false;
+            }
+        });
+    }
+
+    private void filterRcyc(String query) {
+        ArrayList<CategoryModel>  filteredlist = new ArrayList<>();
+
+        for (CategoryModel item : categories) {
+            if (item.getName().toLowerCase().contains(query)) {
+                filteredlist.add(item);
+            }
+        }
     }
 
     private void loadHome() {

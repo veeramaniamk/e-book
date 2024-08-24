@@ -92,7 +92,7 @@ public interface API {
     Call<GetCategoryResponse> getCategories();
 
     @POST("/user/get_books")
-    Call<GetBooksResponse> getByCategories(@Query("category_name") String category_name);
+    Call<GetBooksResponse> getBooksByCategories(@Query("category_name") String category_name);
 
 
 
