@@ -26,4 +26,18 @@ public class Request {
         }
     }
 
+    public static class ChangePassword {
+        private String user_id;
+        private String email;
+        private String current_password;
+        private String new_password;
+
+        public ChangePassword(String user_id, String email, String current_password, String new_password) {
+            this.user_id = user_id;
+            this.email = email;
+            this.current_password = current_password;
+            this.new_password = new_password;
+        }
+    }
+
 }

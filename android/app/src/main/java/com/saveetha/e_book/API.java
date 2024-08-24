@@ -40,7 +40,6 @@ public interface API {
     @POST("/user/signup")
     Call<CommonResponse> signUp(@Body SignUpRequest request);
 
-
     @POST("/admin/get_books")
     Call<GetBooksResponse> getBooksAdminHomePage(@Query("book_approval") String book_approval);
 
@@ -91,6 +90,13 @@ public interface API {
 
     @POST("user/update_user_info")
     Call<CommonResponse> updateUserInfo(@Body Request.UpdateProfile request);
+
+    @POST("user/change_password")
+    Call<CommonResponse> changePassword(@Body Request.ChangePassword request);
+
+    @Multipart
+    @POST("user/update_profile_image")
+    Call<CommonResponse> updateUserProfile(@Part("user_id") String userId, @Part MultipartBody.Part profile);
 
 
 

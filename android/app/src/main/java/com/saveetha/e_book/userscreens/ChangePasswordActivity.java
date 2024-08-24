@@ -10,9 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import com.saveetha.e_book.Constant;
 import com.saveetha.e_book.RestClient;
+import com.saveetha.e_book.SF;
 import com.saveetha.e_book.databinding.ActivityChangePasswordBinding;
+import com.saveetha.e_book.request.Request;
 import com.saveetha.e_book.request.Signin;
+import com.saveetha.e_book.response.CommonResponse;
 import com.saveetha.e_book.response.SignInResponse;
 
 import retrofit2.Call;
@@ -40,20 +44,34 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         binding.backCV.setOnClickListener(v -> finish());
 
-        binding.saveBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        binding.saveBTN.setOnClickListener(v -> getText());
     }
-    void apiCall() {
-        Call<SignInResponse> responseCall = RestClient.makeAPI().signIn(new Signin());
-        responseCall.enqueue(new Callback<SignInResponse>() {
+    private void getText(){
+        String oldPassword = binding.currentPasswordET.getText().toString();
+        String newPassword = binding.newPasswordET.getText().toString();
+        String confirmPassword = binding.reEnterPasswordET.getText().toString();
+        if(oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+
+            Toast.makeText(context, "Please enter all fields", Toast.LENGTH_SHORT).show();
+        }else {
+            if(newPassword.equals(confirmPassword)){
+                apiCall(oldPassword,newPassword);
+            }else {
+                Toast.makeText(context, "New password and confirm password does not match", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    void apiCall(String currentPassword, String newPassword) {
+        String userId = SF.getSignInSFValue(activity).get(Constant.ID_SI_SF);
+        String email = SF.getSignInSFValue(activity).get(Constant.EMAIL_SI_SF);
+        Request.ChangePassword request = new Request.ChangePassword(userId,email,currentPassword,newPassword);
+        Call<CommonResponse> responseCall = RestClient.makeAPI().changePassword(request);
+        responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
-            public void onResponse(@NonNull Call<SignInResponse> call, @NonNull Response<SignInResponse> response) {
+            public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
                 if(response.isSuccessful()) {
                     if(response.body().getStatus() ==200) {
+                        finish();
                         Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -64,7 +82,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NonNull Call<SignInResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
                 Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", t.getMessage());
             }
