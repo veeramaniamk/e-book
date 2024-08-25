@@ -27,6 +27,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), SavedAndFinishedActivity.class);
+                intent.putExtra("title","Saved List");
                 startActivity(intent);
             }
         });
@@ -35,6 +36,7 @@ public class LibraryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireContext(), SavedAndFinishedActivity.class);
+                intent.putExtra("title","Finished List");
                 startActivity(intent);
             }
         });

@@ -17,6 +17,7 @@ import com.saveetha.e_book.response.admin.GetPublisherBookResponse;
 import com.saveetha.e_book.response.admin.GetPublisherResponse;
 import com.saveetha.e_book.response.admin.GetPurchesedBooksResponse;
 import com.saveetha.e_book.response.admin.GetSingleBookResponse;
+import com.saveetha.e_book.response.user.GetFinishedBookResponse;
 import com.saveetha.e_book.response.user.GetSavedBooksReponse;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.AddBook;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.RequestGetBook;
@@ -103,9 +104,14 @@ public interface API {
     @POST("/user/get_saved_book")
     Call<GetSavedBooksReponse> getSavedBooks(@Query("user_id") String request);
 
+    @POST("/user/remove_saved_book")
+    Call<CommonResponse> removeSavedBooks(@Query("user_id") String request, @Query("book_id") String book_id);
+
+    @POST("/user/get_finished_book")
+    Call<GetFinishedBookResponse> getFinishedBooks(@Query("user_id") String request);
+
     @POST("/user/get_book_review")
     Call<ReviewResponse> getBookReview(@Body Request.GetBookReview request);
-
 
     @POST("/user/send_review")
     Call<ReviewResponse> sendReview(@Body Request.SendReview request);
