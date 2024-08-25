@@ -3,6 +3,7 @@ package com.saveetha.e_book.userscreens.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,19 +13,20 @@ import android.view.ViewGroup;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.FragmentLibraryBinding;
 import com.saveetha.e_book.userscreens.BooksListActivity;
+import com.saveetha.e_book.userscreens.SavedAndFinishedActivity;
 
 public class LibraryFragment extends Fragment {
 
     FragmentLibraryBinding binding;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLibraryBinding.inflate(getLayoutInflater());
 
         binding.savedTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+                Intent intent = new Intent(requireContext(), SavedAndFinishedActivity.class);
                 startActivity(intent);
             }
         });
@@ -32,7 +34,7 @@ public class LibraryFragment extends Fragment {
         binding.finishedTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), BooksListActivity.class);
+                Intent intent = new Intent(requireContext(), SavedAndFinishedActivity.class);
                 startActivity(intent);
             }
         });

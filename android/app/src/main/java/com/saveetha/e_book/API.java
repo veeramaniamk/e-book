@@ -16,6 +16,7 @@ import com.saveetha.e_book.response.admin.GetPublisherBookResponse;
 import com.saveetha.e_book.response.admin.GetPublisherResponse;
 import com.saveetha.e_book.response.admin.GetPurchesedBooksResponse;
 import com.saveetha.e_book.response.admin.GetSingleBookResponse;
+import com.saveetha.e_book.response.user.GetSavedBooksReponse;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.AddBook;
 import com.saveetha.e_book.reviewerscrees.reviewerapi.request.RequestGetBook;
 
@@ -98,8 +99,7 @@ public interface API {
     @POST("user/update_profile_image")
     Call<CommonResponse> updateUserProfile(@Part("user_id") String userId, @Part MultipartBody.Part profile);
 
-
-
-
+    @POST("/user/get_saved_book")
+    Call<GetSavedBooksReponse> getSavedBooks(@Query("user_id") String request);
 
 }
