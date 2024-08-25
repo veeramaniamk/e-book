@@ -64,14 +64,13 @@ public class ProfileFragment extends Fragment {
             });
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
 
         try {
-            context =  requireContext();
+            context = requireContext();
             activity = requireActivity();
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         binding.changePasswordBTN.setOnClickListener(new View.OnClickListener() {
@@ -103,27 +102,28 @@ public class ProfileFragment extends Fragment {
 
         return binding.getRoot();
     }
+
     private void apiCall(String userId, MultipartBody.Part image, Uri uri) {
 
         Call<CommonResponse> responseCall = RestClient.makeAPI().updateUserProfile(userId, image);
         responseCall.enqueue(new Callback<CommonResponse>() {
             @Override
             public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
-                if(response.isSuccessful()) {
-                    if(response.body().getStatus() ==200) {
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus() == 200) {
                         binding.profileSIV.setImageURI(uri);
-                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "" + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
-                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "" + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("Error", t.getMessage());
             }
         });
@@ -135,7 +135,7 @@ public class ProfileFragment extends Fragment {
         binding.userNameET.setText(key.get(Constant.NAME_SI_SF));
         binding.emailET.setText(key.get(Constant.EMAIL_SI_SF));
         binding.phoneET.setText(key.get(Constant.PHONE_SI_SF));
-        StaticMethods.setGlide(activity,binding.profileSIV,key.get(Constant.PROFILE_SI_SF));
+        StaticMethods.setGlide(activity, binding.profileSIV, key.get(Constant.PROFILE_SI_SF));
         binding.genderS.setText(key.get(Constant.GENDER_SI_SF));
 
     }
