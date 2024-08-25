@@ -1,8 +1,10 @@
 package com.saveetha.e_book.userscreens;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -19,11 +21,18 @@ import com.saveetha.e_book.SF;
 import com.saveetha.e_book.StaticMethods;
 import com.saveetha.e_book.databinding.ActivitySavedAndFinishedBinding;
 import com.saveetha.e_book.databinding.CategoriesViewLayoutBinding;
+import com.saveetha.e_book.databinding.RejectBookDialogBinding;
+import com.saveetha.e_book.databinding.RemoveSavedBookLayoutBinding;
+import com.saveetha.e_book.request.ApproveBookRequest;
+import com.saveetha.e_book.response.CommonResponse;
+import com.saveetha.e_book.response.user.GetFinishedBookData;
+import com.saveetha.e_book.response.user.GetFinishedBookResponse;
 import com.saveetha.e_book.response.user.GetSavedBookData;
 import com.saveetha.e_book.response.user.GetSavedBooksReponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +43,8 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
     private Context context;
     private FragmentActivity activity;
     ActivitySavedAndFinishedBinding binding;
+    String userId;
+    String title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,16 +54,53 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
         try {
             context = this;
             activity = this;
-            String title = getIntent().getStringExtra("title");
+             title = getIntent().getStringExtra("title");
             binding.title.setText(title);
-            String userId = SF.getSignInSFValue(activity).get(Constant.ID_SI_SF);
-            apiCall(userId);
+            userId = SF.getSignInSFValue(activity).get(Constant.ID_SI_SF);
+            if(title.equalsIgnoreCase("Saved List")){
+                savedBookApi(userId);
+            }else{
+                finishedBookApi(userId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         clickListener();
     }
-    private void apiCall(String userId) {
+    private void finishedBookApi(String userId) {
+        Call<GetFinishedBookResponse> responseCall = RestClient.makeAPI().getFinishedBooks(userId);
+        responseCall.enqueue(new Callback<GetFinishedBookResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GetFinishedBookResponse> call, @NonNull Response<GetFinishedBookResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body().getStatus() == 200) {
+                        if(response.body().getData() == null){
+                            Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        List<BookData> list = new ArrayList<>();
+                        for (GetFinishedBookData data : response.body().getData()) {
+                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title));
+                        }
+                        binding.recyclerView.setLayoutManager(new GridLayoutManager(context,3));
+                        binding.recyclerView.setAdapter(new SavedAndFinishedAdapter(activity,list));
+                    }else {
+                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GetFinishedBookResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+    }
+
+    private void savedBookApi(String userId) {
         Call<GetSavedBooksReponse> responseCall = RestClient.makeAPI().getSavedBooks(userId);
         responseCall.enqueue(new Callback<GetSavedBooksReponse>() {
             @Override
@@ -94,13 +142,19 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
         private int bookId;
         private String bookCoverImage;
         private int bookSavedId;
+        private String from;
 
-        public BookData(String title, int bookId, String bookCoverImage, int bookSavedId) {
+        public BookData(String title, int bookId, String bookCoverImage, int bookSavedId,String from) {
             this.title = title;
             this.bookId = bookId;
             this.bookCoverImage = bookCoverImage;
             this.bookSavedId = bookSavedId;
+            this.from = from;
 
+        }
+
+        public String getFrom() {
+            return from;
         }
 
         public int getBookSavedId() {
@@ -142,7 +196,49 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
             BookData data = list.get(position);
             StaticMethods.setGlide(activity, holder.binding.categoryIV, data.getBookCoverImage());
             holder.binding.categoryTV.setText(data.getTitle());
+            if(data.getFrom().equalsIgnoreCase("Saved List")){
+                holder.binding.cardlayout.setOnLongClickListener(v -> {
+                    bookRejectApiCall(""+data.getBookId(),userId);
+                    return false;
+                });
+            }
         }
+
+        private void bookRejectApiCall(String saveId, String userId) {
+            Dialog dialog = new Dialog(context);
+            RemoveSavedBookLayoutBinding binding = RemoveSavedBookLayoutBinding.inflate(dialog.getLayoutInflater());
+            dialog.setContentView(binding.getRoot());
+            Objects.requireNonNull(dialog.getWindow()).setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.show();
+            binding.cancelButton.setOnClickListener(view ->  dialog.dismiss());
+            binding.removeB.setOnClickListener(view -> {
+
+                Call<CommonResponse> responseCall = RestClient.makeAPI().removeSavedBooks(userId,saveId);
+                responseCall.enqueue(new Callback<CommonResponse>() {
+                    @Override
+                    public void onResponse(@NonNull Call<CommonResponse> call, @NonNull Response<CommonResponse> response) {
+                        dialog.dismiss();
+                        if(response.isSuccessful()) {
+                            if(response.body().getStatus() ==200) {
+                                Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<CommonResponse> call, @NonNull Throwable t) {
+                        dialog.dismiss();
+                        Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("Error", t.getMessage());
+                    }
+                });
+            });
+        }
+
 
         @Override
         public int getItemCount() {

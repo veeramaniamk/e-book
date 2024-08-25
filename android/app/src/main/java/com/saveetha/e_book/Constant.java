@@ -7,17 +7,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.saveetha.e_book.request.Signin;
 import com.saveetha.e_book.response.SignInResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public interface Constant {
+public interface Constant extends PaymentResultListener {
     String BASE_URL = "https://fcd3-2409-4072-31e-70b8-5c9e-a8e4-7463-6592.ngrok-free.app";
 
     String[] GENDER = {"MALE", "FEMALE"};
+
 
     String SIGN_IN_SF       = "SF_SI";
     String NAME_SI_SF       = "SF_NAME_SI";
@@ -51,6 +57,52 @@ public interface Constant {
                 Log.e("Error", t.getMessage());
             }
         });
+    }
+
+    default void payment(String packageName, long amount,String username,String userEmail)
+    {
+        // initialize Razorpay account.
+        Checkout checkout = new Checkout();
+
+        // set your id as below
+        checkout.setKeyID("rzp_test_U2XWpODmhRkL0l" +
+                "");
+
+        // set image
+        checkout.setImage(R.drawable.profile);
+
+        // initialize json object
+        JSONObject object = new JSONObject();
+        try {
+            // to put name
+            object.put("name", username);
+
+            // put description
+            object.put("description", "Test payment");
+
+            // to set theme color
+            object.put("theme.color", "");
+
+            // put the currency
+            object.put("currency", "INR");
+
+            // put amount
+            object.put("amount", (amount*100));
+
+            // put mobile number
+            object.put("prefill.contact", "");
+
+            // put package name
+            object.put("package name",packageName);
+
+            // put email
+            object.put("prefill.email", userEmail);
+
+            // open razorpay to checkout activity
+            checkout.open(null, object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
