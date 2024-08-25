@@ -111,7 +111,8 @@ public interface API {
     Call<GetFinishedBookResponse> getFinishedBooks(@Query("user_id") String request);
 
     @POST("/user/get_book_review")
-    Call<ReviewResponse> getBookReview(@Body Request.GetBookReview request);
+    Call<ReviewResponse> getBookReview(@Query("book_id") int book_id);
+
 
     @POST("/user/send_review")
     Call<ReviewResponse> sendReview(@Body Request.SendReview request);
