@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public interface Constant {
-    String BASE_URL = "https://fcd3-2409-4072-31e-70b8-5c9e-a8e4-7463-6592.ngrok-free.app";
+    String BASE_URL = "https://1462-223-187-117-19.ngrok-free.app";
 
     String[] GENDER = {"MALE", "FEMALE"};
 

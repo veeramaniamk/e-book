@@ -10,6 +10,7 @@ public class GetSingleBookData {
     private String book_cover_image;
     private String demo_book;
     private String book_pdf;
+    private String price;
     private String auther_name;
     private String year_of_the_book;
     private String book_submit_date;
@@ -17,6 +18,10 @@ public class GetSingleBookData {
     private String book_approval_date ;
     private String book_cancelled_msg ;
     private boolean payment_status;
+
+    public String getPrice() {
+        return price;
+    }
 
     public int getBook_id() {
         return book_id;

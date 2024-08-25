@@ -107,5 +107,11 @@ public interface API {
     @POST("/user/send_review")
     Call<ReviewResponse> sendReview(@Body Request.SendReview request);
 
+    @POST("/user/get_single_book")
+    Call<GetSingleBookResponse> getUserSingleBook(@Query("book_id") int book_id, @Query("user_id") int user_id);
+
+    @POST("/user/save_book")
+    Call<CommonResponse> saveBook(@Query("book_id") int book_id, @Query("user_id") int user_id);
+
 
 }
