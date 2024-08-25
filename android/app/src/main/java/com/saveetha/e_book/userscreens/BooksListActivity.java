@@ -45,7 +45,6 @@ public class BooksListActivity extends AppCompatActivity {
         categoryType = getIntent().getStringExtra("CATEGORY_TYPE");
         loadHome();
 
-
     }
 
     private void loadHome() {
@@ -62,7 +61,7 @@ public class BooksListActivity extends AppCompatActivity {
                         if (item.size() > 0) {
 
                             for(GetBooksData data : item){
-                                books.add(new BookModel(data.getAuther_name(),data.getBook_cover_image()));
+                                books.add(new BookModel(data.getBook_title(),data.getBook_cover_image(),data.getBook_id(),data.getPublisher_id(),data.getPublisher_name(),data.getBook_cover_image(),data.getAuther_name(),data.getYear_of_the_book(),data.getBook_submit_date(),data.getBook_description(),data.getBook_approval_status(),data.getBook_approval_date(),data.getBook_cancelled_msg(),data.getBook_title(),data.getBook_pdf(),data.getDemo_book(),data.getPrice()));
                             }
                             BookListAdapter bookAdapter = new BookListAdapter(context, books);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false);

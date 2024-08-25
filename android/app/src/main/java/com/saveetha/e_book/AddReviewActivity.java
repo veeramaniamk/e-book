@@ -1,7 +1,6 @@
 package com.saveetha.e_book;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,12 +14,25 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.saveetha.e_book.databinding.ActivityAddReviewBinding;
-import com.saveetha.e_book.reviewerscrees.ReviewerAddBookActivity;
-import com.saveetha.e_book.reviewerscrees.ReviewerAddCategoryActivity;
+import com.saveetha.e_book.request.Request;
+import com.saveetha.e_book.response.ReviewResponse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddReviewActivity extends AppCompatActivity {
 
+    List<ReviewModule> reviewModules = new ArrayList<>();
+
     ActivityAddReviewBinding binding;
+
+    private String book_name, book_image, book_description, book_id, book_author, book_price, book_publisher_id;
+    private int user_id;
+    private String reviewText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +40,53 @@ public class AddReviewActivity extends AppCompatActivity {
         binding = ActivityAddReviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        user_id = getSharedPreferences(Constant.SIGN_IN_SF,MODE_PRIVATE).getInt(Constant.ID_SI_SF,0);
+
+        if (getIntent() != null) {
+            book_name = getIntent().getStringExtra("book_name");
+            book_image = getIntent().getStringExtra("book_image");
+            book_description = getIntent().getStringExtra("book_description");
+            book_id = getIntent().getStringExtra("book_id");
+            book_author = getIntent().getStringExtra("book_author");
+            book_price = getIntent().getStringExtra("book_price");
+            book_publisher_id = getIntent().getStringExtra("book_publisher_id");
+        }
+
         onClick();
+        loadData();
+
+    }
+
+    private void loadData() {
+        Call<ReviewResponse> res = RestClient.makeAPI().getBookReview(Integer.parseInt(book_id));
+
+        res.enqueue(new Callback<ReviewResponse>() {
+            @Override
+            public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getStatus().equals("200")){
+
+                        List<ReviewResponse.Review> reviews = response.body().getData();
+                        if(reviews.size()>0){
+
+                            for(ReviewResponse.Review review : reviews){
+                                reviewModules.add(new ReviewModule(review.getProfile(),review.getUser_name(),review.getReview_text(),review.getDate()));
+                            }
+
+
+
+                        }
+                    }
+                } else {
+                    Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewResponse> call, Throwable t) {
+                Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -37,7 +95,7 @@ public class AddReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                showPopupWindow(v);
             }
         });
     }
@@ -60,7 +118,9 @@ public class AddReviewActivity extends AppCompatActivity {
             if (reviewText.isEmpty()) {
                 Toast.makeText(this, "write something!", Toast.LENGTH_SHORT).show();
             } else {
-                sendReview();
+                if(sendReview(review)){
+                    popupWindow.dismiss();
+                }
             }
         });
 
@@ -68,7 +128,40 @@ public class AddReviewActivity extends AppCompatActivity {
 
     }
 
-    private void sendReview() {
+    private boolean sendReview(EditText review) {
 
+        final boolean[] isAdded = {true};
+        reviewText = review.getText().toString();
+
+        if(reviewText.isEmpty()){
+            Toast.makeText(this, "write something!", Toast.LENGTH_SHORT).show();
+            isAdded[0] = false;
+        }
+
+        Request.SendReview request = new Request.SendReview(book_id,user_id,book_publisher_id,reviewText);
+
+        Call<ReviewResponse> res = RestClient.makeAPI().sendReview(request);
+
+        res.enqueue(new Callback<ReviewResponse>() {
+            @Override
+            public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getStatus().equals("200")){
+                        Toast.makeText(AddReviewActivity.this, "review added", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewResponse> call, Throwable t) {
+
+                isAdded[0] = false;
+                Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return isAdded[0];
     }
 }

@@ -9,10 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.saveetha.e_book.R;
+import com.saveetha.e_book.userscreens.BookDetailsActivity;
 import com.saveetha.e_book.userscreens.dataclass.BookModel;
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +43,18 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         BookModel book = books.get(position);
         holder.bookName.setText(book.getName());
         Picasso.get().load(book.getImageUrl()).into(holder.bookImage);
+        holder.book.setOnClickListener(v->{
+            Intent intent = new Intent(context, BookDetailsActivity.class);
+            intent.putExtra("book_name", book.getName());
+            intent.putExtra("book_image", book.getImageUrl());
+            intent.putExtra("book_description", book.getBook_description());
+            intent.putExtra("book_id", book.getBook_id());
+            intent.putExtra("book_author", book.getAuther_name());
+            intent.putExtra("book_price", book.getPrice());
+            intent.putExtra("book_publisher_id", book.getPublisher_id());
+
+            context.startActivity(intent);
+        });
 
     }
 
@@ -53,12 +67,14 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         ImageView bookImage;
         TextView bookName;
         ConstraintLayout book;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             bookImage = itemView.findViewById(R.id.categoryIV);
             bookName = itemView.findViewById(R.id.categoryTV);
             book = itemView.findViewById(R.id.categoryCL);
+            cardView = itemView.findViewById(R.id.cardlayout);
         }
     }
 }

@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     FragmentHomeBinding binding;
     ArrayList<CategoryModel> categories;
     Context context;
+    CategoryListAdapter categoryAdapter;
 
 
     @Override
@@ -89,6 +90,7 @@ public class HomeFragment extends Fragment {
         for (CategoryModel item : categories) {
             if (item.getName().toLowerCase().contains(query)) {
                 filteredlist.add(item);
+                categoryAdapter.filterList(filteredlist);
             }
         }
     }
@@ -108,7 +110,7 @@ public class HomeFragment extends Fragment {
                             for(GetCategoryResponse.data data : item){
                                 categories.add(new CategoryModel(data.getCategory_name(),data.getCategory_image()));
                             }
-                            CategoryListAdapter categoryAdapter = new CategoryListAdapter(context, categories);
+                            categoryAdapter= new CategoryListAdapter(context, categories);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL,false);
                             binding.categoryRV.setLayoutManager(gridLayoutManager);
                             binding.categoryRV.setAdapter(categoryAdapter);
