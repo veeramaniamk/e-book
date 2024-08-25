@@ -29,7 +29,8 @@
             android:exported="false" />
         <activity
             android:name=".AddReviewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".userscreens.BookDetailsActivity"
             android:exported="false" />
@@ -91,6 +92,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>

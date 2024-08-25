@@ -2,6 +2,7 @@ package com.saveetha.e_book.userscreens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.saveetha.e_book.AddReviewActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.ActivityBookDetailsBinding;
@@ -32,6 +34,14 @@ public class BookDetailsActivity extends AppCompatActivity {
             book_author = getIntent().getStringExtra("book_author");
             book_price = getIntent().getStringExtra("book_price");
             book_publisher_id = getIntent().getStringExtra("book_publisher_id");
+            Log.d("book_id", book_id);
+            Log.d("book_name", book_name);
+            Log.d("book_image", book_image);
+            Log.d("book_description", book_description);
+            Log.d("book_author", book_author);
+            Log.d("book_price", book_price);
+            Log.d("book_publisher_id", book_publisher_id);
+
         }
 
         loadBookDetails();
@@ -57,5 +67,10 @@ public class BookDetailsActivity extends AppCompatActivity {
         binding.autherNameTV.setText(book_author);
         binding.bookDescription.setText(book_description);
         binding.bookPriceTV.setText(book_price);
+        Glide.with(this)
+                .load(book_image)
+                .placeholder(R.drawable.book_icon)
+                .error(R.drawable.book_icon)
+                .into(binding.imageBookSIV);
     }
 }

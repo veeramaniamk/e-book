@@ -55,4 +55,12 @@ public class Request {
             this.review_text = reviewText;
         }
     }
+
+    public static class GetBookReview {
+        private String book_id;
+
+        public GetBookReview(String book_id) {
+            this.book_id = book_id;
+        }
+    }
 }

@@ -12,7 +12,9 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.saveetha.e_book.databinding.ActivityAddReviewBinding;
 import com.saveetha.e_book.request.Request;
 import com.saveetha.e_book.response.ReviewResponse;
@@ -33,14 +35,19 @@ public class AddReviewActivity extends AppCompatActivity {
     private String book_name, book_image, book_description, book_id, book_author, book_price, book_publisher_id;
     private int user_id;
     private String reviewText;
+    ReviewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddReviewBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        user_id = getSharedPreferences(Constant.SIGN_IN_SF,MODE_PRIVATE).getInt(Constant.ID_SI_SF,0);
+        String userId = SF.getSignInSFValue(this).get(Constant.ID_SI_SF);
+        if (userId != null) {
+            this.user_id = Integer.parseInt(userId);
+        } else {
+            Toast.makeText(this, "Error in getting user id", Toast.LENGTH_SHORT).show();
+        }
 
         if (getIntent() != null) {
             book_name = getIntent().getStringExtra("book_name");
@@ -50,6 +57,9 @@ public class AddReviewActivity extends AppCompatActivity {
             book_author = getIntent().getStringExtra("book_author");
             book_price = getIntent().getStringExtra("book_price");
             book_publisher_id = getIntent().getStringExtra("book_publisher_id");
+
+        } else {
+            Toast.makeText(this, "Error in getting data", Toast.LENGTH_SHORT).show();
         }
 
         onClick();
@@ -58,33 +68,44 @@ public class AddReviewActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        Call<ReviewResponse> res = RestClient.makeAPI().getBookReview(Integer.parseInt(book_id));
+
+        Toast.makeText(this, "loading data" + book_id, Toast.LENGTH_SHORT).show();
+        Request.GetBookReview request = new Request.GetBookReview(book_id);
+        Call<ReviewResponse> res = RestClient.makeAPI().getBookReview(request);
 
         res.enqueue(new Callback<ReviewResponse>() {
             @Override
             public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("200")){
+                if (response.isSuccessful()) {
+                    Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body().getStatus().equals("200")) {
+
+                        Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                         List<ReviewResponse.Review> reviews = response.body().getData();
-                        if(reviews.size()>0){
+                        if (reviews.size() > 0) {
 
-                            for(ReviewResponse.Review review : reviews){
-                                reviewModules.add(new ReviewModule(review.getProfile(),review.getUser_name(),review.getReview_text(),review.getDate()));
+                            Toast.makeText(AddReviewActivity.this, "reviews found", Toast.LENGTH_SHORT).show();
+                            for (ReviewResponse.Review review : reviews) {
+                                reviewModules.add(new ReviewModule(review.getProfile(), review.getUser_name(), review.getReview_text(), review.getDate()));
                             }
 
+                            adapter = new ReviewAdapter(reviewModules, AddReviewActivity.this);
+                            binding.reviewsRV.setLayoutManager(new LinearLayoutManager(AddReviewActivity.this));
+                            binding.reviewsRV.setAdapter(adapter);
 
-
+                        } else {
+                            Toast.makeText(AddReviewActivity.this, "no reviews found", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
-                    Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddReviewActivity.this, "something went wrong" + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReviewResponse> call, Throwable t) {
-                Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddReviewActivity.this, "something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -109,8 +130,7 @@ public class AddReviewActivity extends AppCompatActivity {
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) EditText review = popupView.findViewById(R.id.reviewET);
-        Button send = popupView.findViewById(R.id.sendBtn);
-
+        FloatingActionButton send = popupView.findViewById(R.id.sendBtn);
 
 
         send.setOnClickListener(v -> {
@@ -118,13 +138,13 @@ public class AddReviewActivity extends AppCompatActivity {
             if (reviewText.isEmpty()) {
                 Toast.makeText(this, "write something!", Toast.LENGTH_SHORT).show();
             } else {
-                if(sendReview(review)){
+                if (sendReview(review)) {
                     popupWindow.dismiss();
                 }
             }
         });
 
-        popupWindow.showAtLocation(anchorView, Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 0); // Adjust gravity and position as needed
+        popupWindow.showAtLocation(anchorView, Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 1000); // Adjust gravity and position as needed
 
     }
 
@@ -133,21 +153,22 @@ public class AddReviewActivity extends AppCompatActivity {
         final boolean[] isAdded = {true};
         reviewText = review.getText().toString();
 
-        if(reviewText.isEmpty()){
+        if (reviewText.isEmpty()) {
             Toast.makeText(this, "write something!", Toast.LENGTH_SHORT).show();
             isAdded[0] = false;
         }
 
-        Request.SendReview request = new Request.SendReview(book_id,user_id,book_publisher_id,reviewText);
+        Request.SendReview request = new Request.SendReview(book_id, user_id, book_publisher_id, reviewText);
 
         Call<ReviewResponse> res = RestClient.makeAPI().sendReview(request);
 
         res.enqueue(new Callback<ReviewResponse>() {
             @Override
             public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
-                if(response.isSuccessful()){
-                    if(response.body().getStatus().equals("200")){
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equals("200")) {
                         Toast.makeText(AddReviewActivity.this, "review added", Toast.LENGTH_SHORT).show();
+
                     }
                 } else {
                     Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
@@ -163,5 +184,11 @@ public class AddReviewActivity extends AppCompatActivity {
         });
 
         return isAdded[0];
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
     }
 }
