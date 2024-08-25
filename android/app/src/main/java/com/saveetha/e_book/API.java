@@ -104,7 +104,7 @@ public interface API {
     Call<GetSavedBooksReponse> getSavedBooks(@Query("user_id") String request);
 
     @POST("/user/get_book_review")
-    Call<ReviewResponse> getBookReview(@Query("book_id") int book_id);
+    Call<ReviewResponse> getBookReview(@Body Request.GetBookReview request);
 
 
     @POST("/user/send_review")

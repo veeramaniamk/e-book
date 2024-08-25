@@ -45,13 +45,13 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         Picasso.get().load(book.getImageUrl()).into(holder.bookImage);
         holder.book.setOnClickListener(v->{
             Intent intent = new Intent(context, BookDetailsActivity.class);
-            intent.putExtra("book_name", book.getName());
+            intent.putExtra("book_name", ""+book.getName());
             intent.putExtra("book_image", book.getImageUrl());
-            intent.putExtra("book_description", book.getBook_description());
-            intent.putExtra("book_id", book.getBook_id());
-            intent.putExtra("book_author", book.getAuther_name());
-            intent.putExtra("book_price", book.getPrice());
-            intent.putExtra("book_publisher_id", book.getPublisher_id());
+            intent.putExtra("book_description", ""+book.getBook_description());
+            intent.putExtra("book_id", ""+book.getBook_id());
+            intent.putExtra("book_author", ""+book.getAuther_name());
+            intent.putExtra("book_price", ""+book.getPrice());
+            intent.putExtra("book_publisher_id", ""+book.getPublisher_id());
 
             context.startActivity(intent);
         });
