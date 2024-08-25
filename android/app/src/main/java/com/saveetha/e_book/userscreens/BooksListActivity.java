@@ -49,6 +49,8 @@ public class BooksListActivity extends AppCompatActivity {
 
     private void loadHome() {
 
+        binding.bookCategoryTV.setText(categoryType);
+
         books = new ArrayList<>();
 
         Call<GetBooksResponse> responseCall = RestClient.makeAPI().getBooksByCategories(categoryType);
