@@ -42,13 +42,19 @@ public class BooksListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.backCV.setOnClickListener(v -> finish());
-        categoryType = getIntent().getStringExtra("CATEGORY_TYPE");
-        loadHome();
 
+        if (getIntent() != null) {
+            categoryType = getIntent().getStringExtra("CATEGORY_TYPE");
+            loadHome();
+        }   else{
+            Toast.makeText(this, "Error Fetching Category", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     private void loadHome() {
+
+        binding.bookCategoryTV.setText(categoryType);
 
         books = new ArrayList<>();
 
@@ -61,8 +67,8 @@ public class BooksListActivity extends AppCompatActivity {
                         List<GetBooksData> item = response.body().getData();
                         if (item.size() > 0) {
 
-                            for(GetBooksData data : item){
-                                books.add(new BookModel(data.getAuther_name(),data.getBook_cover_image()));
+                            for (GetBooksData data : item) {
+                                books.add(new BookModel(data.getBook_title(), data.getBook_cover_image(), data.getBook_id(), data.getPublisher_id(), data.getPublisher_name(), data.getBook_cover_image(), data.getAuther_name(), data.getYear_of_the_book(), data.getBook_submit_date(), data.getBook_description(), data.getBook_approval_status(), data.getBook_approval_date(), data.getBook_cancelled_msg(), data.getBook_title(), data.getBook_pdf(), data.getDemo_book(), data.getPrice()));
                             }
                             BookListAdapter bookAdapter = new BookListAdapter(context, books);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false);

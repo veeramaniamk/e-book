@@ -42,7 +42,9 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CategoryModel category = categories.get(position);
         holder.categoryName.setText(category.getName());
-        Picasso.get().load(category.getImageUrl()).into(holder.categoryImage);
+        Picasso.get()
+                .load(category.getImageUrl())
+                .into(holder.categoryImage);
 
         holder.category.setOnClickListener(v -> {
             Intent intent = new Intent(context, BooksListActivity.class);
@@ -54,6 +56,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     @Override
     public int getItemCount() {
         return categories.size();
+    }
+
+    public void filterList(ArrayList<CategoryModel> filteredlist) {
+        categories = filteredlist;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

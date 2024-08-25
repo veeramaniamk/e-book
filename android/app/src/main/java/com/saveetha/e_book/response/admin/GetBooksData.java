@@ -17,6 +17,11 @@ public class GetBooksData {
     private String book_title;
     private String book_pdf;
     private String demo_book;
+    private String price;
+
+    public String getPrice() {
+        return price;
+    }
 
     public String getBook_pdf() {
         return book_pdf;

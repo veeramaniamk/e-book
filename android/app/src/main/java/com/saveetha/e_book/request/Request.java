@@ -40,4 +40,19 @@ public class Request {
         }
     }
 
+    public static class SendReview {
+
+        private String book_id;
+        private int user_id;
+        private String publisher_id;
+        private String review_text;
+
+
+        public SendReview(String bookId, int userId, String bookPublisherId, String reviewText) {
+            this.book_id = bookId;
+            this.user_id = userId;
+            this.publisher_id = bookPublisherId;
+            this.review_text = reviewText;
+        }
+    }
 }

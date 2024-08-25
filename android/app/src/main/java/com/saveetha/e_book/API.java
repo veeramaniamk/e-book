@@ -7,6 +7,7 @@ import com.saveetha.e_book.request.SignUpRequest;
 import com.saveetha.e_book.request.Signin;
 import com.saveetha.e_book.response.CommonResponse;
 import com.saveetha.e_book.response.GetCategoryResponse;
+import com.saveetha.e_book.response.ReviewResponse;
 import com.saveetha.e_book.response.SignInResponse;
 import com.saveetha.e_book.response.admin.GetAllReviewResponse;
 import com.saveetha.e_book.response.admin.GetBooksResponse;
@@ -101,5 +102,13 @@ public interface API {
 
     @POST("/user/get_saved_book")
     Call<GetSavedBooksReponse> getSavedBooks(@Query("user_id") String request);
+
+    @POST("/user/get_book_review")
+    Call<ReviewResponse> getBookReview(@Query("book_id") int book_id);
+
+
+    @POST("/user/send_review")
+    Call<ReviewResponse> sendReview(@Body Request.SendReview request);
+
 
 }
