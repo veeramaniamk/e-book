@@ -43,6 +43,8 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
         try {
             context = this;
             activity = this;
+            String title = getIntent().getStringExtra("title");
+            binding.title.setText(title);
             String userId = SF.getSignInSFValue(activity).get(Constant.ID_SI_SF);
             apiCall(userId);
         } catch (Exception e) {
