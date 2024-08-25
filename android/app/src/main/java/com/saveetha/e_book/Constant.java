@@ -24,7 +24,6 @@ public interface Constant extends PaymentResultListener {
 
     String[] GENDER = {"MALE", "FEMALE"};
 
-
     String SIGN_IN_SF       = "SF_SI";
     String NAME_SI_SF       = "SF_NAME_SI";
     String ID_SI_SF         = "SF_ID_SI";
