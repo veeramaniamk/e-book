@@ -99,6 +99,7 @@ public interface API {
     @POST("user/update_profile_image")
     Call<CommonResponse> updateUserProfile(@Part("user_id") String userId, @Part MultipartBody.Part profile);
 
+
     @POST("/user/get_book_review")
     Call<ReviewResponse> getBookReview(@Query("book_id") int book_id);
 
