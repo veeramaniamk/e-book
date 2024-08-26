@@ -53,6 +53,7 @@ const prepareBook = (req, res, length) => {
         book.publisher_name         = element.publisher_name;
         book.book_title             = element.book_title;
         book.book_description       = element.book_description;
+        book.price                  = element.price;
         book.book_cover_image       = SITE_COVER_IMAGE_URL + element.book_cover_image;
         book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;
         book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
