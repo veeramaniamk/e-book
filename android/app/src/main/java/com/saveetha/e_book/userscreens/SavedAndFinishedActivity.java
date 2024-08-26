@@ -113,7 +113,7 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
                         }
                         List<BookData> list = new ArrayList<>();
                         for (GetSavedBookData data : response.body().getData()) {
-                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id()));
+                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title));
                         }
                         binding.recyclerView.setLayoutManager(new GridLayoutManager(context,3));
                         binding.recyclerView.setAdapter(new SavedAndFinishedAdapter(activity,list));
