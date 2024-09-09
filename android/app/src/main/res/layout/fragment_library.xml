@@ -63,4 +63,20 @@
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/savedTV" />
 
+    <TextView
+        android:id="@+id/myBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical"
+        android:drawableStart="@drawable/finished"
+        android:drawablePadding="10dp"
+        android:drawableEnd="@drawable/arrow_right"
+        android:text="My Books"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/finishedTV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

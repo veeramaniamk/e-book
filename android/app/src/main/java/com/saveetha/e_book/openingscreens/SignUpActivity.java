@@ -55,8 +55,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         SignUpRequest signUpRequest = new SignUpRequest(
                 name,
-                email,
                 phoneNumber,
+                email,
                 user_type,
                 gender, password
         );

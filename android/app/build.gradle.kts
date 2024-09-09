@@ -55,13 +55,21 @@ dependencies {
 
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
-//    gif
+//    load gif file
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.1.0")
 
-//    glide
+//    glide for load image url
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
     //for razorpay
     implementation("com.razorpay:checkout:1.6.36")
+    implementation("com.joanzapata.pdfview:android-pdfview:1.0.4@aar")
+
+    //load pdf url
+//    implementation("com.github.mhiew:android-pdf-viewer:3.2.0")
+    //for external pdf viewer  library
+//    implementation("com.github.barteksc:pdfium-android:1.7.1")
+//    implementation("om.github.barteksc:android-pdf-viewer:2.8.2")
+//    implementation("com.github.barteksc:pdfium-android:1.9.0")
 }

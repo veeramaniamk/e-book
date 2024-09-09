@@ -51,12 +51,12 @@ const prepareBook = (req, res, length) => {
         book.book_id                = element.id;
         book.publisher_id           = element.publisher_id;
         book.publisher_name         = element.publisher_name;
-        book.book_title             = element.book_title;
+        book.book_title             = element.book_titile;
         book.book_description       = element.book_description;
         book.price                  = element.price;
         book.book_cover_image       = SITE_COVER_IMAGE_URL + element.book_cover_image;
         book.demo_book              = SITE_DEMO_BOOK_URL   + element.demo_file;
-        book.book_pdf               = SITE_BOOK_URL        + element.book_pdf;
+        book.book_pdf               = '/books/'            + element.book_pdf;
         book.auther_name            = element.auther_name;
         book.year_of_the_book       = element.year_of_the_book;
         book.book_submit_date       = element.book_submit_date;

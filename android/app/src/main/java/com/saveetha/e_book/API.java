@@ -26,14 +26,17 @@ import java.io.File;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface API {
 
@@ -111,7 +114,7 @@ public interface API {
     Call<GetFinishedBookResponse> getFinishedBooks(@Query("user_id") String request);
 
     @POST("/user/get_book_review")
-    Call<ReviewResponse> getBookReview(Request.GetBookReview request);
+    Call<ReviewResponse> getBookReview(@Body Request.GetBookReview request);
 
 
     @POST("/user/send_review")
@@ -123,5 +126,19 @@ public interface API {
     @POST("/user/save_book")
     Call<CommonResponse> saveBook(@Query("book_id") int book_id, @Query("user_id") int user_id);
 
+    @POST("/user/buy_book")
+    Call<CommonResponse> buyBook(@Body Request.BuyBook request);
 
+    @POST("/user/finish_book")
+    Call<CommonResponse> finishBook(@Query("book_id") int book_id, @Query("user_id") int user_id);
+
+    @Multipart
+    @POST("/publisher/update_category")
+    Call<CommonResponse> updateCategory(@Part("category_name") RequestBody category_name,@Part("category_id")RequestBody category_id, @Part MultipartBody.Part category_image);
+
+    @POST("/publisher/delete_category")
+    Call<CommonResponse> deleteCategory(@Query("category_id") String request);
+
+    @GET
+    Call<ResponseBody> downloadPdf(@Url String fileUrl);
 }

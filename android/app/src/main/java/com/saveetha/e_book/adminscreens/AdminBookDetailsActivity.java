@@ -2,6 +2,7 @@ package com.saveetha.e_book.adminscreens;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.saveetha.e_book.AddReviewActivity;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.RestClient;
 import com.saveetha.e_book.StaticMethods;
@@ -35,6 +37,7 @@ public class AdminBookDetailsActivity extends AppCompatActivity {
 
     ActivityAdminBookDetailsBinding binding;
     Context context;
+    String book_publisher_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +69,16 @@ public class AdminBookDetailsActivity extends AppCompatActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
+        binding.reviewCard.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddReviewActivity.class);
+            intent.putExtra("book_id", ""+bookId);
+            intent.putExtra("book_publisher_id", book_publisher_id);
+            startActivity(intent);
+        });
     }
 
     void onClickListener(){
         binding.backCard.setOnClickListener(v -> finish());
-
     }
 
     private void apiCall(int bookId) {
@@ -90,9 +98,10 @@ public class AdminBookDetailsActivity extends AppCompatActivity {
                         binding.bookName.setText("Book Name : "+data1.getBook_title());
                         binding.autherName.setText("Auther Name : "+data1.getAuther_name());
                         binding.bookDescription.setText(data1.getBook_description());
-                        if(data1.getBook_cancelled_msg()!=null){
+                        if(data1.getBook_cancelled_msg()!=null) {
                             binding.rejectedMessage.setText(data1.getBook_cancelled_msg());
                         }
+                        book_publisher_id = ""+data1.getPublisher_id();
                         binding.approveButton.setOnClickListener(v -> bookApprovalApiCall(data1.getBook_id(),data1.getPublisher_id()));
                         binding.rejectButton.setOnClickListener(v -> bookRejectApiCall(data1.getBook_id(),data1.getPublisher_id()));
 

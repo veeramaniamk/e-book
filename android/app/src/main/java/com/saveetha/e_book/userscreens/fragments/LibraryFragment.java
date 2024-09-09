@@ -41,6 +41,12 @@ public class LibraryFragment extends Fragment {
             }
         });
 
+        binding.myBooks.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), SavedAndFinishedActivity.class);
+            intent.putExtra("title","My Books");
+            startActivity(intent);
+        });
+
         return binding.getRoot();
     }
 }

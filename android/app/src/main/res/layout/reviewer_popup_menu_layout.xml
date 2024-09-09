@@ -22,4 +22,14 @@
         android:layout_height="wrap_content"
         android:text="Add book" />
 
+    <Button
+        android:id="@+id/view_category"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Category" />
+
+
+
 </LinearLayout>
