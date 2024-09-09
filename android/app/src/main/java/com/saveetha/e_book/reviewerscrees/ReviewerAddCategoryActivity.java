@@ -114,10 +114,7 @@ public class ReviewerAddCategoryActivity extends AppCompatActivity {
 
         categoryBody = RequestBody.create(MediaType.parse("text/plain"), categoryName);
 
-
         return isValid;
-
-
     }
 
     private ActivityResultLauncher<Intent> pickImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

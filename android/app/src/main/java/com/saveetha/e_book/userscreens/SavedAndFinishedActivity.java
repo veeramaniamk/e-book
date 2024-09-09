@@ -2,6 +2,7 @@ package com.saveetha.e_book.userscreens;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,11 +63,48 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
             }else{
                 finishedBookApi(userId);
             }
+            if(title.equalsIgnoreCase("My Books")){
+                myBooksApi(userId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         clickListener();
     }
+
+    private void myBooksApi(String userId) {
+        Call<GetFinishedBookResponse> responseCall = RestClient.makeAPI().getFinishedBooks(userId);
+        responseCall.enqueue(new Callback<GetFinishedBookResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GetFinishedBookResponse> call, @NonNull Response<GetFinishedBookResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body().getStatus() == 200) {
+                        if(response.body().getData() == null){
+                            Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        List<BookData> list = new ArrayList<>();
+                        for (GetFinishedBookData data : response.body().getData()) {
+                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title,data.getPublisher_id()));
+                        }
+                        binding.recyclerView.setLayoutManager(new GridLayoutManager(context,3));
+                        binding.recyclerView.setAdapter(new SavedAndFinishedAdapter(activity,list));
+                    }else {
+                        Toast.makeText(context, ""+response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(context, ""+response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GetFinishedBookResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("Error", t.getMessage());
+            }
+        });
+    }
+
     private void finishedBookApi(String userId) {
         Call<GetFinishedBookResponse> responseCall = RestClient.makeAPI().getFinishedBooks(userId);
         responseCall.enqueue(new Callback<GetFinishedBookResponse>() {
@@ -80,7 +118,7 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
                         }
                         List<BookData> list = new ArrayList<>();
                         for (GetFinishedBookData data : response.body().getData()) {
-                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title));
+                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title,data.getPublisher_id()));
                         }
                         binding.recyclerView.setLayoutManager(new GridLayoutManager(context,3));
                         binding.recyclerView.setAdapter(new SavedAndFinishedAdapter(activity,list));
@@ -113,7 +151,8 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
                         }
                         List<BookData> list = new ArrayList<>();
                         for (GetSavedBookData data : response.body().getData()) {
-                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title));
+                            list.add(new BookData(data.getBook_title(),data.getBook_id(),data.getBook_cover_image(),data.getSaved_id(),title, data.getPublisher_id()));
+
                         }
                         binding.recyclerView.setLayoutManager(new GridLayoutManager(context,3));
                         binding.recyclerView.setAdapter(new SavedAndFinishedAdapter(activity,list));
@@ -143,14 +182,18 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
         private String bookCoverImage;
         private int bookSavedId;
         private String from;
+        private int publisherId;
 
-        public BookData(String title, int bookId, String bookCoverImage, int bookSavedId,String from) {
+        public BookData(String title, int bookId, String bookCoverImage, int bookSavedId,String from, int publisherId) {
             this.title = title;
             this.bookId = bookId;
             this.bookCoverImage = bookCoverImage;
             this.bookSavedId = bookSavedId;
             this.from = from;
 
+        }
+        public int getPublisherId() {
+            return publisherId;
         }
 
         public String getFrom() {
@@ -202,6 +245,12 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
                     return false;
                 });
             }
+            holder.binding.cardlayout.setOnClickListener(v -> {
+                Intent intent = new Intent(context, BookDetailsActivity.class);
+                intent.putExtra("book_id", ""+data.getBookId());
+                intent.putExtra("book_publisher_id", ""+data.getPublisherId());
+                context.startActivity(intent);
+            });
         }
 
         private void bookRejectApiCall(String saveId, String userId) {
@@ -238,7 +287,6 @@ public class SavedAndFinishedActivity extends AppCompatActivity {
                 });
             });
         }
-
 
         @Override
         public int getItemCount() {

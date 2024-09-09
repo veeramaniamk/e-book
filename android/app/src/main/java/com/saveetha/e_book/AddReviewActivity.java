@@ -31,7 +31,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
     ActivityAddReviewBinding binding;
 
-    private String book_name, book_image, book_description, book_id, book_author, book_price, book_publisher_id;
+    private String  book_id, book_publisher_id;
     private int user_id;
     private String reviewText;
     ReviewAdapter adapter;
@@ -48,13 +48,9 @@ public class AddReviewActivity extends AppCompatActivity {
             Toast.makeText(this, "Error in getting user id", Toast.LENGTH_SHORT).show();
         }
 
+        binding.backCV.setOnClickListener(v -> finish());
         if (getIntent() != null) {
-            book_name = getIntent().getStringExtra("book_name");
-            book_image = getIntent().getStringExtra("book_image");
-            book_description = getIntent().getStringExtra("book_description");
             book_id = getIntent().getStringExtra("book_id");
-            book_author = getIntent().getStringExtra("book_author");
-            book_price = getIntent().getStringExtra("book_price");
             book_publisher_id = getIntent().getStringExtra("book_publisher_id");
 
         } else {
@@ -68,7 +64,6 @@ public class AddReviewActivity extends AppCompatActivity {
 
     private void loadData() {
 
-        Toast.makeText(this, "loading data" + book_id, Toast.LENGTH_SHORT).show();
         Request.GetBookReview request = new Request.GetBookReview(book_id);
         Call<ReviewResponse> res = RestClient.makeAPI().getBookReview(request);
 
@@ -76,19 +71,18 @@ public class AddReviewActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     if (response.body().getStatus().equals("200")) {
 
-                        Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AddReviewActivity.this, "" + response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
                         List<ReviewResponse.Review> reviews = response.body().getData();
-                        if (reviews.size() > 0) {
+                        if (!reviews.isEmpty()) {
 
-                            Toast.makeText(AddReviewActivity.this, "reviews found", Toast.LENGTH_SHORT).show();
                             for (ReviewResponse.Review review : reviews) {
                                 reviewModules.add(new ReviewModule(review.getProfile(), review.getUser_name(), review.getReview_text(), review.getDate()));
                             }
-
+                            Toast.makeText(AddReviewActivity.this, ""+reviews.size(), Toast.LENGTH_SHORT).show();
                             adapter = new ReviewAdapter(reviewModules, AddReviewActivity.this);
                             binding.reviewsRV.setLayoutManager(new LinearLayoutManager(AddReviewActivity.this));
                             binding.reviewsRV.setAdapter(adapter);
@@ -104,7 +98,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ReviewResponse> call, Throwable t) {
-                Toast.makeText(AddReviewActivity.this, "something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddReviewActivity.this, "Check Your Internet Connection" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -128,7 +122,8 @@ public class AddReviewActivity extends AppCompatActivity {
         // Create the PopupWindow
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) EditText review = popupView.findViewById(R.id.reviewET);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        EditText review = popupView.findViewById(R.id.reviewET);
         FloatingActionButton send = popupView.findViewById(R.id.sendBtn);
 
 
@@ -166,8 +161,9 @@ public class AddReviewActivity extends AppCompatActivity {
             public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().equals("200")) {
-                        Toast.makeText(AddReviewActivity.this, "review added", Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(AddReviewActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(AddReviewActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(AddReviewActivity.this, "something went wrong", Toast.LENGTH_SHORT).show();
@@ -188,6 +184,6 @@ public class AddReviewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+//        loadData();
     }
 }

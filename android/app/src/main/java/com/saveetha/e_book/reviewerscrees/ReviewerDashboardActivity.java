@@ -88,6 +88,7 @@ public class ReviewerDashboardActivity extends AppCompatActivity {
         // Set up the custom layout views
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button addCategory = popupView.findViewById(R.id.add_category);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button addBook = popupView.findViewById(R.id.add_book);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button viewCategory = popupView.findViewById(R.id.view_category);
 
         addCategory.setOnClickListener(v -> {
             startActivity(new Intent(this, ReviewerAddCategoryActivity.class));
@@ -96,6 +97,11 @@ public class ReviewerDashboardActivity extends AppCompatActivity {
 
         addBook.setOnClickListener(v -> {
             startActivity(new Intent(this, ReviewerAddBookActivity.class));
+            popupWindow.dismiss();
+        });
+
+        viewCategory.setOnClickListener(v -> {
+            startActivity(new Intent(this, ViewCategoryActivity.class));
             popupWindow.dismiss();
         });
 

@@ -50,7 +50,7 @@ const add_book = (req, res) => {
             const publisher_id      = req.body.publisher_id;
             const publisher_name    = req.body.publisher_name;
             const book_titile       = req.body.book_titile;
-            const book_description  = req.body.book_description;
+            const book_description  = req.body.book_description;    
             const auther_name       = req.body.auther_name;
             const year              = req.body.year_of_the_book;
             const category_name     = req.body.category_name;

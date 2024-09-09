@@ -2,14 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
@@ -25,6 +22,15 @@
         android:theme="@style/Theme.EBook"
         tools:targetApi="31">
         <activity
+            android:name=".reviewerscrees.EditCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".reviewerscrees.ViewCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".userscreens.ReadBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".userscreens.SavedAndFinishedActivity"
             android:exported="false" />
         <activity
@@ -33,7 +39,7 @@
         <activity
             android:name=".AddReviewActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".userscreens.BookDetailsActivity"
             android:exported="false" />
@@ -95,7 +101,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

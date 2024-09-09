@@ -47,23 +47,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
 
 
             Intent intent = new Intent(context, BookDetailsActivity.class);
-            intent.putExtra("book_name", ""+book.getName());
-            intent.putExtra("book_image", book.getImageUrl());
-            intent.putExtra("book_description", ""+book.getBook_description());
             intent.putExtra("book_id", ""+book.getBook_id());
-            intent.putExtra("book_author", ""+book.getAuther_name());
-            intent.putExtra("book_price", ""+book.getPrice());
             intent.putExtra("book_publisher_id", ""+book.getPublisher_id());
-            intent.putExtra("book_publisher_name", ""+book.getPublisher_name());
-            intent.putExtra("book_submit_date", ""+book.getBook_submit_date());
-            intent.putExtra("book_year", ""+book.getYear_of_the_book());
-            intent.putExtra("book_approval_status", ""+book.getBook_approval_status());
-            intent.putExtra("book_approval_date", ""+book.getBook_approval_date());
-            intent.putExtra("book_cancelled_msg", ""+book.getBook_cancelled_msg());
-            intent.putExtra("book_demo_book", ""+book.getDemo_book());
-            intent.putExtra("book_pdf", ""+book.getBook_pdf());
-            intent.putExtra("book_cover_image", ""+book.getBook_cover_image());
-            intent.putExtra("book_title", ""+book.getBook_title());
 
             context.startActivity(intent);
         });

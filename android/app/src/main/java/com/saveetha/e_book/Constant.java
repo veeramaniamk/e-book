@@ -20,9 +20,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public interface Constant extends PaymentResultListener {
-    String BASE_URL = "https://1462-223-187-117-19.ngrok-free.app";
+    String BASE_URL = "https://c1bb-2409-4072-595-b840-c5c1-a683-a90b-f55.ngrok-free.app";
 
-    String[] GENDER = {"MALE", "FEMALE"};
+    String[] GENDER = { "MALE", "FEMALE" };
 
     String SIGN_IN_SF       = "SF_SI";
     String NAME_SI_SF       = "SF_NAME_SI";
@@ -58,8 +58,7 @@ public interface Constant extends PaymentResultListener {
         });
     }
 
-    default void payment(String packageName, long amount,String username,String userEmail)
-    {
+    default void payment(String packageName, long amount,String username,String userEmail) {
         // initialize Razorpay account.
         Checkout checkout = new Checkout();
 
@@ -103,6 +102,5 @@ public interface Constant extends PaymentResultListener {
             e.printStackTrace();
         }
     }
-
 
 }

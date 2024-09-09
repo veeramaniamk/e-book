@@ -24,7 +24,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     public ReviewAdapter(List<ReviewModule> reviewModelList, Context context) {
         this.reviewModelList = reviewModelList;
-        this.context = context;
+        this.context         = context;
     }
 
     @NonNull
@@ -39,7 +39,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
 
         ReviewModule reviewModule = reviewModelList.get(position);
-
 
         Glide.with(context)
                 .load(reviewModule.getProfile())

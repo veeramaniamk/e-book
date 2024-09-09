@@ -53,7 +53,6 @@ public class ReviewerHomeFragment extends Fragment {
 
         binding = FragmentReviewerHomeBinding.inflate(inflater, container, false);
 
-
         try {
             activity = getActivity();
             context = getContext();
@@ -65,11 +64,9 @@ public class ReviewerHomeFragment extends Fragment {
         publisherId = sharedPreferences.getInt(Constant.ID_SI_SF, 0);
         publisherName = sharedPreferences.getString(Constant.NAME_SI_SF, "");
 
-
         onChipListener();
 
         loadReviewerHome();
-
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -96,7 +93,6 @@ public class ReviewerHomeFragment extends Fragment {
         if(Objects.equals(status, "ALL")){
             for (ReviewerBooksModule item : list) {
                   filteredlist.add(item);
-
             }
         } else {
 
@@ -155,12 +151,9 @@ public class ReviewerHomeFragment extends Fragment {
                 Chip selectedChip = binding.chipGroup.findViewById(checkedId);
                 chipText = selectedChip.getText().toString();
                 chipFilter(chipText);
-                Toast.makeText(context, "Selected Chip: " + chipText, Toast.LENGTH_SHORT).show();
             } else {
                 chipText = "ALL";
-
             }
-
 
         });
 
@@ -181,7 +174,6 @@ public class ReviewerHomeFragment extends Fragment {
             @Override
             public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(context, "" + response.body().getStatus(), Toast.LENGTH_SHORT).show();
                     if (response.body().getStatus() == 200) {
                         try {
                             for (GetBooksData r : response.body().getData()) {
@@ -202,7 +194,6 @@ public class ReviewerHomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GetBooksResponse> call, Throwable t) {
-
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

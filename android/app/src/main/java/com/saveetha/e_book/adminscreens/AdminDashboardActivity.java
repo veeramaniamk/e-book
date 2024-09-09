@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.saveetha.e_book.R;
 import com.saveetha.e_book.databinding.ActivityAdminDashboardBinding;
+import com.saveetha.e_book.userscreens.fragments.ProfileFragment;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 } else if (itemId == R.id.admin_request) {
                     selectedFragment = new AdminRequestFragment();
                 } else if (itemId == R.id.admin_profile) {
-                    selectedFragment = new AdminProfileFragment();
+                    selectedFragment = new ProfileFragment();
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.adminContainer, selectedFragment).commit();

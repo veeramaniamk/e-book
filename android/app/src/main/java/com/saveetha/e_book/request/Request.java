@@ -1,5 +1,6 @@
 package com.saveetha.e_book.request;
 
+
 public class Request {
 
     public static class GetPublisherBook {
@@ -64,5 +65,20 @@ public class Request {
         }
     }
 
+    public static class BuyBook {
+        private int user_id;
+        private String publisher_id;
+        private String book_id;
+        private String price;
+        private String transaction_id;
+
+        public BuyBook(int user_id, String publisher_id, String book_id, String price, String transaction_id) {
+            this.user_id = user_id;
+            this.publisher_id = publisher_id;
+            this.book_id = book_id;
+            this.price = price;
+            this.transaction_id = transaction_id;
+        }
+    }
 
 }
